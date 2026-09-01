@@ -1,0 +1,72 @@
+#!/usr/bin/env phonoscript
+# Structured phonology and finite-GEN conformance through native records.
+
+let input = phonological_form("/bad/", [
+    {symbol: "b", features: {voice: true, consonantal: true}},
+    {symbol: "a", features: {syllabic: true}},
+    {symbol: "d", features: {voice: true, consonantal: true}},
+], {
+    morphemes: [{label: "root", kind: "root", segments: [0, 1, 2]}],
+    prosody: {
+        syllables: [{onset: [0], nucleus: [1], coda: [2], stress: "primary"}],
+        moras: [{syllable: 0, bearers: [1]}],
+        feet: [{syllables: [0], head: 0}],
+        words: [{syllables: [0], morphemes: [0]}],
+    },
+    tiers: [{
+        name: "tone",
+        nodes: [{kind: "tone", value: 5}],
+        associations: [{node: 0, target: {kind: "syllable", id: 0}}],
+    }],
+})
+
+assert_equal(input.morphemes[0].label, "root")
+assert_equal(input.prosody.syllables[0].stress, "primary")
+assert_equal(input.tiers[0].nodes[0].value.kind, "tone")
+
+let generated = finite_gen(input, {
+    name: "one-step final devoicing",
+    operations: [
+        {id: "identity", operation: {kind: "identity"}, max_applications_per_candidate: 1},
+        {
+            id: "devoice-final",
+            operation: {
+                kind: "feature-change",
+                selector: {kind: "at", positions: [2]},
+                feature: "voice",
+                values: [{kind: "negative"}],
+            },
+            max_applications_per_candidate: 1,
+        },
+    ],
+    domain: {max_derivation_steps: 1, max_segments_per_form: 4},
+    resources: {max_candidates: 8, max_operation_expansions: 8, max_variants_per_application: 8},
+    support_claim: {kind: "complete-for-declared-domain", statement: "identity and one final feature change"},
+    deduplication: "preserve-derivations",
+})
+
+assert_equal(generated.status, "complete")
+assert_equal(generated.statistics.retained_candidates, 2)
+assert_equal(len(generated.candidates[0].correspondences), 1)
+assert_equal(len(generated.candidates[0].forms["1"].prosody.syllables), 1)
+
+candidates_clear()
+constraints_clear()
+constraint_add("*VOICED-CODA", 2)
+constraint_add("IDENT-IO(voice)", 1)
+// This reviewed ledger follows finite_gen's stable candidate order: the
+// devoiced candidate first, then the faithful candidate. The phonologist
+// supplies every count; neither finite_gen nor this import inspects structure
+// to infer a violation.
+let violation_ledger = [
+    [0, 1],
+    [1, 0],
+]
+let imported = generation_to_tableau(generated, violation_ledger)
+assert_equal(imported.imported, 2)
+assert_equal(violation_get(0, 0), 0)
+assert_equal(violation_get(0, 1), 1)
+assert_equal(violation_get(1, 0), 1)
+assert_equal(violation_get(1, 1), 0)
+project_evaluator("OT")
+assert_equal(len(winners()), 1)

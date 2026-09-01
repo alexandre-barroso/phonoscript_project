@@ -1,0 +1,52 @@
+#!/usr/bin/env phonoscript
+// Source key: mccarthy2000harmonic.
+// McCarthy 2000, printed pp. 517--518, physical PDF pp. 18--19.
+// The parallel assertion is exact for printed Tableau (17), rows a--b. The
+// serial assertion is the bounded two-constraint spreading-first obstruction
+// in derivation (18), not a complete Rimi grammar.
+project_title("McCarthy Rimi source regression")
+project_evaluator("OT")
+dataset_clear()
+
+tableau_select("source")
+tableau_name("Rimi tone flop: printed rows a-b")
+tableau_input("/ra-muntu/")
+tableau_source_locator("McCarthy 2000, printed Tableau (17), rows a--b, physical PDF p. 18")
+constraints_clear()
+candidates_clear()
+constraint_add("NO-LONG-T", 1, "", 0)
+constraint_add("LOCAL", 1, "", 0)
+constraint_add("MAX(T)", 1, "", 0)
+constraint_add("ALIGN-R", 1, "", 1)
+constraint_add("MAX(A)", 1, "", 2)
+constraint_add("DEP(A)", 1, "", 2)
+candidate_add("faithful-prefix-H", "ramuntu: prefix-linked H", [0, 0, 0, 2, 0, 0])
+candidate_add("tone-flop", "ramuntu: root-linked H", [0, 0, 0, 1, 1, 1])
+assert_winners(["tone-flop"])
+
+tableau_select("target")
+tableau_name("Rimi spreading-first GEN1 projection")
+tableau_input("A: prefix-linked H")
+tableau_source_locator("McCarthy 2000, derivation (18), spreading-first obstruction, physical PDF p. 19")
+constraints_clear()
+candidates_clear()
+constraint_add("NO-LONG-T", 1, "", 0)
+constraint_add("ALIGN-R", 1, "", 1)
+candidate_add("identity-A", "A: prefix-linked H", [0, 2])
+candidate_add("spread-B", "B: multiply-linked H", [1, 1])
+
+serial_side("target")
+serial_start("A: prefix-linked H")
+serial_limit(8)
+serial_clear()
+serial_move("A: prefix-linked H", "A: prefix-linked H", "identity", [0, 2])
+serial_move("A: prefix-linked H", "B: multiply-linked H",
+            "insert one association line (spread)", [1, 1])
+serial_move("B: multiply-linked H", "B: multiply-linked H", "identity", [1, 1])
+serial_move("B: multiply-linked H", "C: root-linked H",
+            "delete one association line (delink)", [0, 1])
+serial_move("C: root-linked H", "C: root-linked H", "identity", [0, 1])
+let serial = serial_evaluate()
+assert(serial["formed"])
+assert_equal(serial["path"], ["A: prefix-linked H"])
+assert_equal(serial["stopped"], "faithful convergence")

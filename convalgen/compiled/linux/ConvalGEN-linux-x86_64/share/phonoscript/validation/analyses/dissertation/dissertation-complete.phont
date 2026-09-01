@@ -1,0 +1,402 @@
+#!/usr/bin/env phonoscript
+// Dissertation tableau validation project: 39 bounded first-order records and
+// one typed complete-order comparison. Every locator names a stable LaTeX
+// label shared by the English and Portuguese dissertations and declares its
+// fidelity ceiling. Neutral displays assert only their registered support
+// size; they do not acquire an invented winner oracle. The engine calculates
+// every asserted answer independently.
+project_title("Dissertation tableau validation project")
+project_author("Alexandre Menezes Barroso")
+project_description("Bounded dissertation transcription with independently calculated regression oracles.")
+project_evaluator("OT")
+project_temperature(1)
+dataset_clear()
+
+fn begin_record(name, input_form, evaluator, locator) {
+    tableau_new(name, input_form)
+    tableau_evaluator(evaluator)
+    tableau_source_locator(locator)
+    tableau_ties("retain")
+    constraints_clear()
+    candidates_clear()
+}
+
+fn add_constraint(name, weight, stratum) {
+    constraint_add(name, weight, "", stratum)
+}
+
+fn add_row(name, marks, mass) {
+    candidate_add(name, name, marks, mass, 0)
+}
+
+// fig:apph-neutral-selection-tableau; fidelity:exact.
+begin_record("H.1 Neutral HG selection", "/x/", "HG", "Dissertation EN/PT-BR; fig:apph-neutral-selection-tableau; sec:apph-pairwise-versus-selection; fidelity:exact")
+add_constraint("C1", 2, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 0], 1)
+add_row("b", [1, 0], 1)
+add_row("c", [0, 1], 1)
+assert_winners(["a"])
+
+// tab:apph-gd-score-replay, x block; fidelity:exact-transform.
+begin_record("H.2 Goldrick-Daland x score replay", "x=(1,0)", "HG", "Dissertation EN/PT-BR; tab:apph-gd-score-replay; block:apph-gd-input-x; eq:apph-gd-score-rows; fidelity:exact-transform (cost=20-H)")
+add_constraint("order-preserving cost", 1, 0)
+add_row("0", [20], 1)
+add_row("y", [0], 1)
+add_row("u", [37], 1)
+add_row("z", [19], 1)
+assert_winners(["y"])
+
+// tab:apph-gd-score-replay, w block; fidelity:exact-transform.
+begin_record("H.3 Goldrick-Daland w score replay", "w=(0,1)", "HG", "Dissertation EN/PT-BR; tab:apph-gd-score-replay; block:apph-gd-input-w; eq:apph-gd-score-rows; fidelity:exact-transform (cost=18-H)")
+add_constraint("order-preserving cost", 1, 0)
+add_row("0", [18], 1)
+add_row("y", [15], 1)
+add_row("u", [1], 1)
+add_row("z", [0], 1)
+assert_winners(["z"])
+
+// tab:apph-mccollum-grid; fidelity:exact-transform.
+begin_record("H.4 Exact tenths-grid objective", "x=0,...,1", "HG", "Dissertation EN/PT-BR; tab:apph-mccollum-grid; sec:apph-mccollum; fidelity:exact-transform (100 J1(x))")
+add_constraint("100 J1(x)", 1, 0)
+add_row("x=0", [2100], 1)
+add_row("x=1/10", [1711], 1)
+add_row("x=1/5", [1364], 1)
+add_row("x=3/10", [1059], 1)
+add_row("x=2/5", [796], 1)
+add_row("x=1/2", [575], 1)
+add_row("x=3/5", [396], 1)
+add_row("x=7/10", [259], 1)
+add_row("x=4/5", [164], 1)
+add_row("x=9/10", [111], 1)
+add_row("x=1", [100], 1)
+assert_winners(["x=1"])
+
+fn basic_syllable_constraints() {
+    add_constraint("Onset", 1, 0)
+    add_constraint("NoCoda", 1, 1)
+    add_constraint("Dep", 1, 2)
+    add_constraint("Max", 1, 3)
+}
+
+// tab:apph-basic-tensor, /CV/ block; fidelity:neutral-ledger.
+begin_record("H.5 Basic Syllable /CV/", "/CV/", "OT", "Dissertation EN/PT-BR; tab:apph-basic-tensor; block:/CV/; fidelity:neutral-ledger")
+basic_syllable_constraints()
+add_row("CV", [0, 0, 0, 0], 1)
+add_row("CVC", [0, 1, 1, 0], 1)
+add_row("V", [1, 0, 0, 1], 1)
+add_row("VC", [1, 1, 1, 1], 1)
+assert_equal(len(evaluate()["rows"]), 4)
+
+// tab:apph-basic-tensor, /CVC/ block; fidelity:neutral-ledger.
+begin_record("H.6 Basic Syllable /CVC/", "/CVC/", "OT", "Dissertation EN/PT-BR; tab:apph-basic-tensor; block:/CVC/; fidelity:neutral-ledger")
+basic_syllable_constraints()
+add_row("CV", [0, 0, 0, 1], 1)
+add_row("CVC", [0, 1, 0, 0], 1)
+add_row("V", [1, 0, 0, 2], 1)
+add_row("VC", [1, 1, 0, 1], 1)
+assert_equal(len(evaluate()["rows"]), 4)
+
+// tab:apph-basic-tensor, /V/ block; fidelity:neutral-ledger.
+begin_record("H.7 Basic Syllable /V/", "/V/", "OT", "Dissertation EN/PT-BR; tab:apph-basic-tensor; block:/V/; fidelity:neutral-ledger")
+basic_syllable_constraints()
+add_row("CV", [0, 0, 1, 0], 1)
+add_row("CVC", [0, 1, 2, 0], 1)
+add_row("V", [1, 0, 0, 0], 1)
+add_row("VC", [1, 1, 1, 0], 1)
+assert_equal(len(evaluate()["rows"]), 4)
+
+// tab:apph-basic-tensor, /VC/ block; fidelity:neutral-ledger.
+begin_record("H.8 Basic Syllable /VC/", "/VC/", "OT", "Dissertation EN/PT-BR; tab:apph-basic-tensor; block:/VC/; fidelity:neutral-ledger")
+basic_syllable_constraints()
+add_row("CV", [0, 0, 1, 1], 1)
+add_row("CVC", [0, 1, 1, 0], 1)
+add_row("V", [1, 0, 0, 1], 1)
+add_row("VC", [1, 1, 0, 0], 1)
+assert_equal(len(evaluate()["rows"]), 4)
+
+fn walker_cell(name, assimilation_cost, faithful_cost, expected, locator) {
+    begin_record(name, "Walker cell", "HG", locator)
+    add_constraint("printed cost", 1, 0)
+    add_row("assimilation", [assimilation_cost], 1)
+    add_row("faithful", [faithful_cost], 1)
+    assert_winners([expected])
+}
+
+// tab:apph-walker-replay, ids 1–7.
+walker_cell("H.9 Walker source 1", 15, 18, "assimilation", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 1; fidelity:exact")
+walker_cell("H.10 Walker source 2", 15, 20, "assimilation", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 2; fidelity:exact")
+walker_cell("H.11 Walker source 3", 17, 16, "faithful", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 3; fidelity:exact")
+walker_cell("H.12 Walker source 4", 17, 20, "assimilation", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 4; fidelity:exact")
+walker_cell("H.13 Walker source 5", 19, 16, "faithful", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 5; fidelity:exact")
+walker_cell("H.14 Walker source 6", 19, 18, "faithful", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 6; fidelity:exact")
+walker_cell("H.15 Walker interior witness", 170, 176, "assimilation", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 7 new witness; fidelity:exact-transform (10P)")
+
+// tab:apph-walker-replay, id 8 boundary; fidelity:exact.
+begin_record("H.16 Walker boundary", "Walker cell", "HG", "Dissertation EN/PT-BR; tab:apph-walker-replay; id 8 boundary; fidelity:exact")
+add_constraint("printed cost", 1, 0)
+add_row("assimilation", [17], 1)
+add_row("faithful", [17], 1)
+assert_winners(["assimilation", "faithful"])
+
+// fig:apph-pater-scaling-tableau; fidelity:snapshot-only.
+begin_record("H.17 Hidden-candidate MaxEnt fibre", "one hidden-candidate input", "MaxEnt", "Dissertation EN/PT-BR; fig:apph-pater-scaling-tableau; panel:apph-pater-source; fidelity:snapshot-only (t=log 2 represented by base masses)")
+add_constraint("score", 0, 0)
+add_row("a->A", [0], 1)
+add_row("b->A", [0], 1)
+add_row("c->A", [0], 1)
+add_row("d->B", [0], 2)
+assert_winners(["d->B"])
+
+// fig:apph-cabrera-consumer-tableaux, one-shot panel; fidelity:exact.
+begin_record("H.18 One-shot support", "n=0,...,5", "MaxEnt", "Dissertation EN/PT-BR; fig:apph-cabrera-consumer-tableaux; panel:apph-cabrera-one-shot; eq:apph-cabrera-one-shot; fidelity:exact")
+add_constraint("Markedness", 1/2, 0)
+add_row("c0", [0], 1)
+add_row("c1", [1], 1)
+add_row("c2", [2], 1)
+add_row("c3", [3], 1)
+add_row("c4", [4], 1)
+add_row("c5", [5], 1)
+assert_winners(["c0"])
+
+// fig:apph-cabrera-consumer-tableaux, binary panel; fidelity:exact.
+begin_record("H.19 Binary MParse boundary", "n=3", "MaxEnt", "Dissertation EN/PT-BR; fig:apph-cabrera-consumer-tableaux; panel:apph-cabrera-binary; eq:apph-cabrera-binary; fidelity:exact")
+add_constraint("Markedness", 1/2, 0)
+add_constraint("MParse", 3/2, 1)
+add_row("c3", [3, 0], 1)
+add_row("null", [0, 1], 1)
+assert_winners(["c3", "null"])
+
+// fig:appe-smallest-maxent; fidelity:exact-transform.
+begin_record("E.1 Smallest MaxEnt tableau", "/u/", "MaxEnt", "Dissertation EN/PT-BR; fig:appe-smallest-maxent; sec:app-maxent-cross-product; fidelity:exact-transform (w=1 specialization)")
+add_constraint("C1", 1, 0)
+add_row("a", [0], 1)
+add_row("b", [1], 1)
+assert_winners(["a"])
+
+// fig:appe-polynomial-ledgers, /u/ block; fidelity:exact-transform.
+begin_record("E.2 Polynomial ledger /u/", "/u/", "MaxEnt", "Dissertation EN/PT-BR; fig:appe-polynomial-ledgers; block:/u/; eq:app-maxent-compiler; fidelity:exact-transform (w=1 specialization)")
+add_constraint("C", 1, 0)
+add_row("a", [0], 1)
+add_row("b1", [0], 1)
+add_row("b2", [2], 1)
+assert_winners(["a", "b1"])
+
+// fig:appe-polynomial-ledgers, /u-prime/ block; fidelity:exact-transform.
+begin_record("E.3 Polynomial ledger /u'/", "/u'/", "MaxEnt", "Dissertation EN/PT-BR; fig:appe-polynomial-ledgers; block:/u-prime/; eq:app-maxent-compiler; fidelity:exact-transform (w=1 specialization)")
+add_constraint("C", 1, 0)
+add_row("a-prime", [0], 1)
+add_row("c1", [1], 1)
+add_row("c2", [1], 1)
+assert_winners(["a-prime"])
+
+fn neutral_three(name, locator_marker) {
+    begin_record(name, "/u/", "OT", locator_marker)
+    add_constraint("C1", 1, 0)
+    add_constraint("C2", 1, 1)
+    add_row("a", [0, 0], 1)
+    add_row("b", [0, 1], 1)
+    add_row("c", [1, 0], 1)
+    assert_equal(len(evaluate()["rows"]), 3)
+    assert(len(locator_marker) > 0)
+}
+
+// fig:intro-neutral-profiles; fidelity:neutral-ledger.
+neutral_three("1.1 Neutral profile", "Dissertation EN/PT-BR; fig:intro-neutral-profiles; sec:intro-opening; fidelity:neutral-ledger (input renamed /x/ to /u/)")
+
+// fig:intro-ranking-one; fidelity:exact-transform.
+begin_record("1.2 C1 above C2", "/u/", "OT", "Dissertation EN/PT-BR; fig:intro-ranking-one; panel:intro-ranking-one; fidelity:exact-transform (input renamed)")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 0], 1)
+add_row("b", [0, 1], 1)
+add_row("c", [1, 0], 1)
+assert_winners(["a"])
+
+// fig:intro-ranking-two; fidelity:exact-transform.
+begin_record("1.3 C2 above C1", "/u/", "OT", "Dissertation EN/PT-BR; fig:intro-ranking-two; panel:intro-ranking-two; fidelity:exact-transform (input renamed)")
+add_constraint("C2", 1, 0)
+add_constraint("C1", 1, 1)
+add_row("a", [0, 0], 1)
+add_row("b", [1, 0], 1)
+add_row("c", [0, 1], 1)
+assert_winners(["a"])
+
+// fig:intro-deletion-sot, source panel; fidelity:exact-transform.
+begin_record("1.4 Candidate-deletion source", "/u/", "OT", "Dissertation EN/PT-BR; fig:intro-deletion-sot; panel:intro-delete-source; fidelity:exact-transform (input renamed)")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 0], 1)
+add_row("b", [0, 1], 1)
+add_row("c", [1, 0], 1)
+assert_winners(["a"])
+
+// fig:intro-sot-opening, source panel; fidelity:exact-transform.
+begin_record("1.5 Neutral source", "/u/", "OT", "Dissertation EN/PT-BR; fig:intro-sot-opening; panel:intro-neutral-source; fidelity:exact-transform (input renamed)")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 0], 1)
+add_row("b", [0, 1], 1)
+add_row("c", [1, 0], 1)
+assert_winners(["a"])
+
+// tab:prior-neutral-ot, C1-first panel; fidelity:exact.
+begin_record("5.1 Prior-art C1 first", "/u/", "OT", "Dissertation EN/PT-BR; tab:prior-neutral-ot; panel:prior-neutral-c1-first; fidelity:exact")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 1], 1)
+add_row("b", [1, 0], 1)
+add_row("c", [1, 1], 1)
+assert_winners(["a"])
+
+// tab:prior-neutral-ot, C2-first panel; fidelity:exact.
+begin_record("5.2 Prior-art C2 first", "/u/", "OT", "Dissertation EN/PT-BR; tab:prior-neutral-ot; panel:prior-neutral-c2-first; fidelity:exact")
+add_constraint("C2", 1, 0)
+add_constraint("C1", 1, 1)
+add_row("a", [1, 0], 1)
+add_row("b", [0, 1], 1)
+add_row("c", [1, 1], 1)
+assert_winners(["b"])
+
+// fig:prior-evaluator-neutral; fidelity:neutral-ledger.
+begin_record("5.3 Evaluator-neutral rows", "/u/", "OT", "Dissertation EN/PT-BR; fig:prior-evaluator-neutral; sec:prior-evaluators; fidelity:neutral-ledger")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 1], 1)
+add_row("b", [1, 0], 1)
+assert_equal(len(evaluate()["rows"]), 2)
+
+// fig:maxent-opening-profiles; fidelity:neutral-ledger.
+begin_record("4.1 MaxEnt-opening neutral rows", "/u/", "OT", "Dissertation EN/PT-BR; fig:maxent-opening-profiles; sec:maxent-from-winner; fidelity:neutral-ledger")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 1], 1)
+add_row("b", [1, 0], 1)
+add_row("c", [1, 1], 1)
+assert_equal(len(evaluate()["rows"]), 3)
+
+// fig:calc-ex01-sot, source panel; fidelity:exact-transform.
+begin_record("2.1 Calculus neutral source", "/u/", "OT", "Dissertation EN/PT-BR; fig:calc-ex01-sot; panel:calc2-neutral-source; fidelity:exact-transform (input renamed)")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 0], 1)
+add_row("b", [0, 1], 1)
+add_row("c", [1, 0], 1)
+assert_winners(["a"])
+
+// tab:calc-four-question-matrix, source panel; fidelity:exact.
+begin_record("2.4 Four-question source", "/u/", "OT", "Dissertation EN/PT-BR; tab:calc-four-question-matrix; panel:calc-four-question-source; eq:calc-four-question-source-order; fidelity:exact")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_constraint("C3", 1, 2)
+add_row("a", [0, 0, 0], 1)
+add_row("b", [0, 1, 0], 1)
+add_row("c", [0, 0, 1], 1)
+add_row("d", [1, 0, 0], 1)
+assert_winners(["a"])
+
+// tab:calc-four-question-matrix, target panel; fidelity:exact.
+begin_record("2.5 Four-question target", "/u/", "OT", "Dissertation EN/PT-BR; tab:calc-four-question-matrix; panel:calc-four-question-target; eq:calc-four-question-target-order; fidelity:exact")
+add_constraint("C1", 1, 0)
+add_constraint("C3", 1, 1)
+add_constraint("C2", 1, 2)
+add_row("a", [0, 0, 0], 1)
+add_row("b", [0, 0, 1], 1)
+add_row("c", [0, 1, 0], 1)
+add_row("d", [1, 0, 0], 1)
+assert_winners(["a"])
+
+// fig:prior-neutral-merger; fidelity:snapshot-only.
+begin_record("5.4 Neutral merger", "/u/", "MaxEnt", "Dissertation EN/PT-BR; fig:prior-neutral-merger; sec:prior-strongest-rivals; fidelity:snapshot-only (derived equal-weight candidate tie)")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [0, 1], 1)
+add_row("b", [1, 0], 1)
+add_row("c", [1, 0], 1)
+assert_winners(["a", "b", "c"])
+
+// fig:calc-stacked-serial-sot, source panel; fidelity:flattened-panel.
+begin_record("2.2 Serial source path", "neutral source", "OT", "Dissertation EN/PT-BR; fig:calc-stacked-serial-sot; panel:calc2-serial-source; fidelity:flattened-panel (not a serial derivation replay)")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [1, 1], 1)
+add_row("b", [0, 1], 1)
+add_row("d", [0, 0], 1)
+assert_winners(["d"])
+
+// fig:calc-stacked-serial-sot, target panel; fidelity:flattened-panel.
+begin_record("2.3 Serial target path", "neutral target", "OT", "Dissertation EN/PT-BR; fig:calc-stacked-serial-sot; panel:calc2-serial-target; fidelity:flattened-panel (not a serial derivation replay)")
+add_constraint("C1", 1, 0)
+add_constraint("C2", 1, 1)
+add_row("a", [1, 1], 1)
+add_row("c", [1, 0], 1)
+add_row("d", [0, 0], 1)
+assert_winners(["d"])
+
+// fig:calc-ex09-sot, source panel; fidelity:source-panel-only.
+begin_record("2.6 Merger source fibre", "source fibre", "MaxEnt", "Dissertation EN/PT-BR; fig:calc-ex09-sot; panel:calc2-merger-source; eq:calc-merger-transport; fidelity:source-panel-only (not the merger comparison)")
+add_constraint("Faith", 0, 0)
+add_row("a1", [0], 1)
+add_row("a2", [0], 1)
+add_row("b", [0], 1)
+assert_winners(["a1", "a2", "b"])
+
+// fig:calc-ex10-sot, source panel; fidelity:source-panel-only.
+begin_record("2.7 Refusal source fibre", "source fibre", "MaxEnt", "Dissertation EN/PT-BR; fig:calc-ex10-sot; panel:calc2-refusal-source; query:calc2-merger-refusal; fidelity:source-panel-only (not the structured refusal)")
+add_constraint("Faith", 0, 0)
+add_row("a1", [0], 1)
+add_row("a2", [0], 1)
+add_row("b", [0], 1)
+assert_winners(["a1", "a2", "b"])
+
+// Independently calculated, label-preserving reparameterization of the
+// complete-order comparison in fig:intro-sot-opening.
+tableau_select("source")
+tableau_name("Second-Order source")
+tableau_input("/ab/")
+tableau_source_locator("Dissertation EN/PT-BR; fig:intro-sot-opening; panel:intro-neutral-source; fidelity:exact-transform (candidate and constraint labels reparameterized)")
+tableau_evaluator("OT")
+constraints_clear()
+candidates_clear()
+add_constraint("IDENT-IO(voice)", 1, 0)
+add_constraint("MAX-IO", 1, 1)
+candidate_add("ab", "[ab]", [0, 0], 1, 0)
+candidate_add("ap", "[ap]", [1, 0], 1, 0)
+candidate_add("a", "[a]", [0, 1], 1, 0)
+assert_winners(["ab"])
+
+tableau_select("target")
+tableau_name("Second-Order target")
+tableau_input("/ab/")
+tableau_source_locator("Dissertation EN/PT-BR; fig:intro-sot-opening; encoded target response; fidelity:exact-transform (candidate and constraint labels reparameterized)")
+tableau_evaluator("OT")
+constraints_clear()
+candidates_clear()
+add_constraint("MAX-IO", 1, 0)
+add_constraint("IDENT-IO(voice)", 1, 1)
+candidate_add("ab", "[ab]", [0, 0], 1, 0)
+candidate_add("ap", "[ap]", [0, 1], 1, 0)
+candidate_add("a", "[a]", [1, 0], 1, 0)
+assert_winners(["ab"])
+
+second_query("complete_order")
+second_answer_sort("preorder on all registered candidates")
+second_scope("complete order of ab, ap, and a")
+second_transformation("rerank IDENT-IO(voice) and MAX-IO")
+second_transport("identity on ab, ap, and a")
+second_mode("exact")
+second_tolerance(1/1000000000)
+second_grid_step(1/1000)
+second_response_domain("terminal")
+second_normalizer("independent")
+second_layout("overlay")
+second_layers("grammar", "grammar")
+second_layer_transport("identity")
+second_consumer("direct", "")
+let comparison = second_compare()
+assert_equal(comparison["status"], "DISCREPANCY")
+assert_equal(len(comparison["discrepancies"]), 2)
+
+tableau_select("H.5 Basic Syllable /CV/")
+assert(q_clone("Onset")["support_conservative"])
+assert_equal(len(evaluate()["rows"]), 4)

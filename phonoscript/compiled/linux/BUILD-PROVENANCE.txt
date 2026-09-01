@@ -1,0 +1,23 @@
+PhonoScript Linux package build provenance
+==========================================
+
+Package: PhonoScript-linux-x86_64.tar.gz
+Target: x86_64-unknown-linux-gnu
+Interpreter SHA-256: 709832858a020baba95a506e321ce05cf5b38ce29e702cbba61f99855a482219
+Source binary: verified PhonoScript interpreter bundled with the matching
+ConvalGEN Linux distribution
+Requested cross-link target: x86_64-linux-gnu.2.17
+Rust: 1.88.0 (6b00bc3880198600130e1cf62b8f8a93494488cc)
+Cargo dependency lock: repository Cargo.lock
+Linker: Zig 0.16.0, x86_64-linux-gnu.2.17 target
+Zig distribution: zig-aarch64-macos-0.16.0.tar.xz
+Official URL: https://ziglang.org/download/0.16.0/zig-aarch64-macos-0.16.0.tar.xz
+Official SHA-256: b23d70deaa879b5c2d486ed3316f7eaa53e84acf6fc9cc747de152450d401489
+Build profile: release, thin LTO, one codegen unit, stripped PIE
+
+No compiler or linker was rerun for this standalone distribution. The exact
+previously inspected interpreter was copied from the matching ConvalGEN bundle.
+Static inspection confirmed an x86-64 ELF PIE, the standard x86-64 GNU/Linux
+interpreter, no referenced GLIBC symbol newer than GLIBC_2.17, and no embedded
+user or workspace path. It was not executed on the non-Linux packaging host.
+Native Linux execution remains covered by the repository's Ubuntu workflow.

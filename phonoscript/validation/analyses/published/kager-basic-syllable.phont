@@ -1,0 +1,47 @@
+#!/usr/bin/env phonoscript
+// Bounded three-tableau exercise using the Basic Syllable constraints in
+// Kager 1999, printed pp. 92-117. It is not chapter-complete coverage.
+project_title("Bounded Basic Syllable ranking exercise")
+project_evaluator("OT")
+dataset_clear()
+
+fn basic_constraints() {
+    constraints_clear()
+    candidates_clear()
+    constraint_add("ONSET", 1, "", 0)
+    constraint_add("DEP-IO", 1, "", 1)
+    constraint_add("MAX-IO", 1, "", 2)
+}
+
+tableau_select("source")
+tableau_name("Onset repair")
+tableau_input("/VC/")
+basic_constraints()
+candidate_add("faithful", "[VC]", [1, 0, 0])
+candidate_add("delete", "[C]", [0, 0, 1])
+candidate_add("epenthesize", "[CVC]", [0, 1, 0])
+assert_winners(["delete"])
+
+tableau_select("target")
+tableau_name("Faithful onsetless form")
+tableau_input("/VC/")
+constraints_clear()
+candidates_clear()
+constraint_add("MAX-IO", 1, "", 0)
+constraint_add("DEP-IO", 1, "", 1)
+constraint_add("ONSET", 1, "", 2)
+candidate_add("faithful", "[VC]", [0, 0, 1])
+candidate_add("delete", "[C]", [1, 0, 0])
+candidate_add("epenthesize", "[CVC]", [0, 1, 0])
+assert_winners(["faithful"])
+
+tableau_new("Coda repair", "/CVC/")
+constraints_clear()
+candidates_clear()
+constraint_add("NOCODA", 1, "", 0)
+constraint_add("DEP-IO", 1, "", 1)
+constraint_add("MAX-IO", 1, "", 2)
+candidate_add("faithful", "[CVC]", [1, 0, 0])
+candidate_add("delete", "[CV]", [0, 0, 1])
+candidate_add("epenthesize", "[CVCV]", [0, 1, 0])
+assert_winners(["delete"])

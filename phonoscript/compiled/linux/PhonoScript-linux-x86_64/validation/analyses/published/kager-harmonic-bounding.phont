@@ -1,0 +1,24 @@
+#!/usr/bin/env phonoscript
+// Bounded harmonic-bounding demonstration associated with Kager 1999,
+// printed pp. 18-47. This three-candidate ledger is a generic finite witness,
+// not a transcription of the whole chapter.
+project_title("Finite harmonic-bounding witness")
+project_evaluator("OT")
+dataset_clear()
+tableau_select("source")
+tableau_name("Bounded candidate")
+tableau_input("/x/")
+constraints_clear()
+candidates_clear()
+constraint_add("MARK", 1, "", 0)
+constraint_add("FAITH", 1, "", 1)
+candidate_add("a", "[a]", [0, 0])
+candidate_add("b-bounded", "[b]", [1, 1], 1, 1)
+candidate_add("c", "[c]", [0, 1])
+assert_winners(["a"])
+let bounds = harmonic_bounds()
+assert_equal(len(bounds), 2)
+constraint_move("FAITH", 0)
+assert_winners(["a"])
+let space = q_ranking_space()
+assert_equal(space["total_rankings"], 1)

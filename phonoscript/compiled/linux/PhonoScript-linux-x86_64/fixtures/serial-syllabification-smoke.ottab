@@ -1,0 +1,332 @@
+{
+  "id": "project-1",
+  "format": "convalgen-analysis",
+  "format_version": 4,
+  "application": "ConvalGEN",
+  "title": "Finite GEN1 serial smoke test",
+  "author": "",
+  "description": "",
+  "keywords": [],
+  "evaluator": "ot",
+  "temperature": {
+    "kind": "exact",
+    "numerator": "1",
+    "denominator": "1"
+  },
+  "source": {
+    "id": "tableau:/txznt/",
+    "name": "/txznt/",
+    "input": "/txznt/",
+    "constraints": [
+      {
+        "id": "constraint:ONS",
+        "name": "ONS",
+        "weight": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "stratum": 0,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:HNUC",
+        "name": "HNUC",
+        "weight": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "stratum": 1,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      }
+    ],
+    "candidates": [
+      {
+        "id": "candidate:first local winner",
+        "name": "first local winner",
+        "form": "tx(zN)t",
+        "violations": [
+          0,
+          0
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    ],
+    "tie_policy": "retain all co-winners",
+    "notes": "",
+    "evaluator": null,
+    "temperature": null,
+    "missing_dependencies": [],
+    "expected_winners": [],
+    "source_locator": ""
+  },
+  "target": {
+    "id": "tableau:/txznt/",
+    "name": "/txznt/",
+    "input": "/txznt/",
+    "constraints": [
+      {
+        "id": "constraint:ONS",
+        "name": "ONS",
+        "weight": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "stratum": 0,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:HNUC",
+        "name": "HNUC",
+        "weight": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "stratum": 1,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      }
+    ],
+    "candidates": [
+      {
+        "id": "candidate:first local winner",
+        "name": "first local winner",
+        "form": "tx(zN)t",
+        "violations": [
+          0,
+          0
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    ],
+    "tie_policy": "retain all co-winners",
+    "notes": "",
+    "evaluator": null,
+    "temperature": null,
+    "missing_dependencies": [],
+    "expected_winners": [],
+    "source_locator": ""
+  },
+  "dataset": [
+    {
+      "id": "tableau:/txznt/",
+      "name": "/txznt/",
+      "input": "/txznt/",
+      "constraints": [
+        {
+          "id": "constraint:ONS",
+          "name": "ONS",
+          "weight": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "stratum": 0,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "constraint:HNUC",
+          "name": "HNUC",
+          "weight": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "stratum": 1,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "id": "candidate:first local winner",
+          "name": "first local winner",
+          "form": "tx(zN)t",
+          "violations": [
+            0,
+            0
+          ],
+          "base_mass": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "notes": "",
+          "observed_frequency": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          }
+        }
+      ],
+      "tie_policy": "retain all co-winners",
+      "notes": "",
+      "evaluator": null,
+      "temperature": null,
+      "missing_dependencies": [],
+      "expected_winners": [],
+      "source_locator": ""
+    }
+  ],
+  "a_priori_rankings": [],
+  "serial": {
+    "start": "txznt",
+    "moves": [
+      {
+        "from": "txznt",
+        "to": "txznt",
+        "operation": "identity",
+        "violations": [
+          1,
+          2
+        ]
+      },
+      {
+        "from": "txznt",
+        "to": "tx(zN)t",
+        "operation": "construct one nucleus",
+        "violations": [
+          0,
+          0
+        ]
+      },
+      {
+        "from": "tx(zN)t",
+        "to": "tx(zN)t",
+        "operation": "identity",
+        "violations": [
+          0,
+          0
+        ]
+      }
+    ],
+    "maximum_steps": 8
+  },
+  "target_serial": {
+    "start": "",
+    "moves": [],
+    "maximum_steps": 64
+  },
+  "second_order": {
+    "query": "winner-set",
+    "answer_sort": "set of candidate identities",
+    "scope": "complete registered candidate support",
+    "transformation": "identity",
+    "transport": "identity on candidate identities",
+    "layout": "overlay",
+    "comparison_mode": "exact",
+    "tolerance": {
+      "kind": "exact",
+      "numerator": "1",
+      "denominator": "1000000000"
+    },
+    "grid_step": {
+      "kind": "exact",
+      "numerator": "1",
+      "denominator": "1000"
+    },
+    "response_domain": "terminal",
+    "normalizer_policy": "independent",
+    "source_layer": "grammar",
+    "target_layer": "grammar",
+    "layer_transport": "identity",
+    "consumer_mode": "direct",
+    "consumer": ""
+  },
+  "clone_constraint": 0,
+  "plot": "candidate-scores",
+  "presentation": {
+    "compact_rows": true,
+    "show_title": true,
+    "show_author": false,
+    "show_legend": false,
+    "export_scale": 1.0
+  }
+}

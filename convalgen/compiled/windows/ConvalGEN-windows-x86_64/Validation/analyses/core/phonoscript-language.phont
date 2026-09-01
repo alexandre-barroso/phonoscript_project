@@ -1,0 +1,54 @@
+#!/usr/bin/env phonoscript
+// Generic PhonoScript v2 language and finite-GEN conformance program.
+project_title("PhonoScript v2 language conformance")
+project_evaluator("HG")
+dataset_clear()
+tableau_select("source")
+tableau_name("Reusable weighted grammar")
+tableau_input("/ab/")
+constraints_clear()
+candidates_clear()
+
+fn add_row(identity, form, marks) {
+    candidate_add(identity, form, marks)
+}
+
+fn factorial(n) {
+    if n <= 1 { return 1 }
+    return n * factorial(n - 1)
+}
+
+let faith_weight = 2
+let markedness_weight = faith_weight + 1
+let ratio = (markedness_weight * 2) / faith_weight
+constraint_add("*b", markedness_weight)
+constraint_add("MAX", faith_weight)
+add_row("faithful", "[ab]", [1, 0])
+add_row("delete", "[a]", [0, 1])
+
+if ratio == 3 and not false {
+    assert_winners(["delete"])
+} else {
+    assert(false, "exact arithmetic did not preserve the declared weights")
+}
+assert_equal(harmony("faithful"), 3)
+assert_equal(harmony("delete"), 2)
+assert_equal(factorial(8), 40320)
+
+var total = 0
+for number in range(1, 5) { total = total + number }
+var countdown = 3
+while countdown > 0 { countdown = countdown - 1 }
+assert_equal(total, 10)
+assert_equal(countdown, 0)
+
+let deletions = generator_delete("abc")
+let insertions = generator_insert("a", ["i", "u"])
+let substitutions = generator_substitute("ab", "xy")
+let swaps = generator_swap("abc")
+assert_equal(len(deletions), 3)
+assert_equal(len(insertions), 4)
+assert_equal(len(substitutions), 4)
+assert_equal(len(swaps), 2)
+assert_equal(segments("aə"), ["a", "ə"])
+print("PhonoScript v2 runtime passed")

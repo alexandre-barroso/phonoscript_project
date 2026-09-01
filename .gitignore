@@ -1,0 +1,45 @@
+.DS_Store
+**/.DS_Store
+
+/target/
+**/target/
+/.local_sources/
+
+# Rebuildable visual-validation output and redundant release archives stay
+# outside the repository. Runnable platform distributions remain versioned.
+/convalgen/validation/exports/
+/convalgen/validation/ui/
+*.zip
+*.tar.gz
+
+# Keep only the repository landing page under version control as Markdown.
+*.md
+*.MD
+*.markdown
+*.MARKDOWN
+*.[mM][dD]
+*.[mM][aA][rR][kK][dD][oO][wW][nN]
+!/README.md
+
+# LaTeX sources are build inputs and remain local.
+*.[tT][eE][xX]
+
+# Publish PDFs only from docs/; ignore reference, validation, packaged, and
+# generated PDFs everywhere else in the repository.
+*.[pP][dD][fF]
+!/docs/*.[pP][dD][fF]
+!/docs/**/*.[pP][dD][fF]
+
+*.swp
+*.tmp
+*.bak
+*.orig
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.xdv

@@ -1,0 +1,79 @@
+#!/usr/bin/env phonoscript
+# Low-level typed import for output-output and Sympathy correspondence.
+
+let input = phonological_form("/ab/", ["a", "b"])
+let support = finite_gen(input, {
+    name: "identity support",
+    operations: [{id: "identity", operation: {kind: "identity"}, max_applications_per_candidate: 1}],
+    domain: {max_derivation_steps: 1, max_segments_per_form: 2},
+    resources: {max_candidates: 2, max_operation_expansions: 2, max_variants_per_application: 2},
+    support_claim: {kind: "complete-for-declared-domain", statement: "identity only"},
+    deduplication: "structured-representation",
+})
+let seed = support.candidates[0]
+
+let oo_base = {
+    id: 2,
+    label: "OO base",
+    role: {kind: "related-surface", relation: "base of the related word"},
+    segments: seed.forms["1"].segments,
+    morphemes: seed.forms["1"].morphemes,
+    prosody: seed.forms["1"].prosody,
+    tiers: seed.forms["1"].tiers,
+}
+let sympathetic = {
+    id: 3,
+    label: "sympathetic candidate",
+    role: {kind: "sympathetic"},
+    segments: seed.forms["1"].segments,
+    morphemes: seed.forms["1"].morphemes,
+    prosody: seed.forms["1"].prosody,
+    tiers: seed.forms["1"].tiers,
+}
+let candidate = {
+    id: 17,
+    label: "[ab]",
+    underlying_form: 0,
+    surface_form: 1,
+    forms: {
+        "0": seed.forms["0"],
+        "1": seed.forms["1"],
+        "2": oo_base,
+        "3": sympathetic,
+    },
+    correspondences: [
+        seed.correspondences[0],
+        {
+            id: 1,
+            label: "OO",
+            kind: {kind: "output-output"},
+            source_form: 2,
+            target_form: 1,
+            links: [
+                {id: 0, source: [{kind: "segment", id: 0}], target: [{kind: "segment", id: 0}]},
+                {id: 1, source: [{kind: "segment", id: 1}], target: [{kind: "segment", id: 1}]},
+            ],
+        },
+        {
+            id: 2,
+            label: "Sympathy",
+            kind: {kind: "sympathy"},
+            source_form: 3,
+            target_form: 1,
+            links: [
+                {id: 0, source: [{kind: "segment", id: 0}], target: [{kind: "segment", id: 0}]},
+                {id: 1, source: [{kind: "segment", id: 1}], target: [{kind: "segment", id: 1}]},
+            ],
+        },
+    ],
+    derivation: [],
+    metadata: {analysis: "OO and Sympathy"},
+}
+
+constraints_clear()
+candidates_clear()
+constraint_add("Faith", 1)
+# Marks are always an explicit analyst decision; structure does not infer them.
+candidate_add_structured("faithful", candidate, [0])
+tableau_source_locator("PhonoScript structured-correspondence conformance fixture")
+assert_winners(["faithful"])

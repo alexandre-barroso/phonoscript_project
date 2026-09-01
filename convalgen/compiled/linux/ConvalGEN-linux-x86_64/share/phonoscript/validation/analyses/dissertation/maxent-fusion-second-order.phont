@@ -1,0 +1,44 @@
+#!/usr/bin/env phonoscript
+// Dissertation exact probability-mass-preserving fusion construction.
+// Publication locator: Dissertation EN/PT-BR, fig:calc-ex09-sot and
+// eq:calc-merger-transport. This script executes the complete fusion law,
+// whereas the 39-record project stores only the source panel.
+project_title("Exact MaxEnt mass-preserving fusion")
+project_evaluator("MaxEnt")
+project_temperature(1)
+dataset_clear()
+
+tableau_select("source")
+tableau_name("Fine support")
+tableau_input("/x/")
+constraints_clear()
+candidates_clear()
+constraint_add("C", 0)
+candidate_add("a1", "[a]", [0], 1)
+candidate_add("a2", "[a]", [0], 1)
+candidate_add("b", "[b]", [0], 1)
+assert_probability("a1", 1/3, 1/1000000000000)
+assert_probability("a2", 1/3, 1/1000000000000)
+
+tableau_select("target")
+tableau_name("Fused support")
+tableau_input("/x/")
+constraints_clear()
+candidates_clear()
+constraint_add("C", 0)
+candidate_add("a", "[a]", [0], 2)
+candidate_add("b", "[b]", [0], 1)
+assert_probability("a", 2/3, 1/1000000000000)
+
+second_query("probability_law")
+second_answer_sort("probability law on the declared candidate support")
+second_scope("a1, a2, b to a, b")
+second_transformation("fuse the two a representatives")
+second_transport("fusion a1+a2=a; mass-preserving")
+second_mode("exact")
+second_normalizer("independent")
+let comparison = second_compare()
+assert_equal(comparison["status"], "PRESERVED")
+assert(comparison["conservative"])
+assert_equal(len(comparison["discrepancies"]), 0)
+assert_equal(type_of(comparison["certificate"]), "record")

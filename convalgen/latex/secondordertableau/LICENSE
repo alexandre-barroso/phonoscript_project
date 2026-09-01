@@ -1,0 +1,24 @@
+LaTeX Project Public License notice
+===================================
+
+Copyright (C) 2026 Alexandre Menezes Barroso
+
+The `secondordertableau` work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.3c of the
+license or (at your option) any later version.
+
+The latest version of the license is available from:
+
+    https://www.latex-project.org/lppl/
+
+Version 1.3c or later is part of every current LaTeX distribution.
+
+This work has the LPPL maintenance status `maintained`.
+
+The Current Maintainer of this work is Alexandre Menezes Barroso.
+
+The work consists of the documented `secondordertableau` package source,
+installer, generated package, manual, examples, tests, and public
+documentation distributed together in the release archive. Third-party
+reference packages and copyrighted visual-study source images are not part of
+the public work or release archive.

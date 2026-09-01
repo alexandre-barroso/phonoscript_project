@@ -1,0 +1,33 @@
+#!/usr/bin/env phonoscript
+// Generic structured formation refusal: an undefined transport is not false.
+project_title("Structured second-order refusal")
+project_evaluator("OT")
+dataset_clear()
+
+tableau_select("source")
+tableau_name("Source analysis")
+tableau_input("/x/")
+constraints_clear()
+candidates_clear()
+constraint_add("C", 1)
+candidate_add("a", "[a]", [0])
+candidate_add("b", "[b]", [1])
+
+tableau_select("target")
+tableau_name("Target analysis")
+tableau_input("/x/")
+constraints_clear()
+candidates_clear()
+constraint_add("C", 1)
+candidate_add("a", "[a]", [0])
+candidate_add("b", "[b]", [1])
+
+second_query("winner_set")
+second_answer_sort("set of candidate identities")
+second_scope("complete registered support")
+second_transformation("identity analysis transformation")
+second_transport("undefined mapping syntax")
+let result = second_compare()
+assert_equal(result["status"], "NOT EVALUATED")
+assert_equal(result["refusal"]["code"], "QF-TRANSPORT-SYNTAX")
+assert_equal(result["refusal"]["stage"], "formation")

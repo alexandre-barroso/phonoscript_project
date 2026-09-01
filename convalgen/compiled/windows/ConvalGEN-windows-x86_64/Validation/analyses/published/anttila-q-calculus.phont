@@ -1,0 +1,26 @@
+#!/usr/bin/env phonoscript
+// Synthetic Finnish-shaped ranking-space audit motivated by Anttila's work.
+// This is a generic two-candidate Q-Calculus fixture, not a transcription of
+// Anttila's full English or Finnish subgrammars.
+project_title("Synthetic ranking-space clone audit")
+project_evaluator("OT")
+dataset_clear()
+tableau_select("source")
+tableau_name("Synthetic Finnish-shaped variants")
+tableau_input("/naapuri/")
+constraints_clear()
+candidates_clear()
+constraint_add("*H/I", 1, "", 0)
+constraint_add("*Í", 1, "", 0)
+constraint_add("*L.L", 1, "", 0)
+candidate_add("weak", "naapurien", [0, 0, 1])
+candidate_add("strong", "naapureiden", [1, 1, 0])
+
+let space = q_ranking_space()
+assert_equal(space["total_rankings"], 6)
+let clone = q_clone("*H/I")
+assert(clone["support_conservative"])
+assert(not clone["shares_conservative"])
+assert_equal(len(clone["shifts"]), 2)
+let extensions = partial_ranking_extensions([], 10)
+assert_equal(len(extensions["orders"]), 6)

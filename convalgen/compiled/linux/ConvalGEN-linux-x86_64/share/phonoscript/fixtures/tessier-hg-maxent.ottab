@@ -1,0 +1,752 @@
+{
+  "id": "project-1",
+  "format": "convalgen-analysis",
+  "format_version": 4,
+  "application": "ConvalGEN",
+  "title": "Tessier /skul/ HG-MaxEnt comparison",
+  "author": "",
+  "description": "Independent transcription of Tessier (2017), physical PDF page 16, Tableaux (14)-(15). The source's exp(-11) decimal is incorrect and its MaxEnt values are unnormalized; ConvalGEN calculates the corrected finite conditional law from the printed ledger.",
+  "keywords": [],
+  "evaluator": "harmonic-grammar",
+  "temperature": {
+    "kind": "exact",
+    "numerator": "1",
+    "denominator": "1"
+  },
+  "source": {
+    "id": "tableau:tessier-hg",
+    "name": "Tessier Tableau (14), HG",
+    "input": "/skul/",
+    "constraints": [
+      {
+        "id": "constraint:*CC-ONSET",
+        "name": "*CC-ONSET",
+        "weight": {
+          "kind": "exact",
+          "numerator": "6",
+          "denominator": "1"
+        },
+        "stratum": 0,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:*s[stop]-ONSET",
+        "name": "*s[stop]-ONSET",
+        "weight": {
+          "kind": "exact",
+          "numerator": "5",
+          "denominator": "1"
+        },
+        "stratum": 1,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:DEP",
+        "name": "DEP",
+        "weight": {
+          "kind": "exact",
+          "numerator": "2",
+          "denominator": "1"
+        },
+        "stratum": 2,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:MAX",
+        "name": "MAX",
+        "weight": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "stratum": 3,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      }
+    ],
+    "candidates": [
+      {
+        "id": "candidate:faithful",
+        "name": "faithful",
+        "form": "[skul]",
+        "violations": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "candidate:delete-s",
+        "name": "delete-s",
+        "form": "[kul]",
+        "violations": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "candidate:epenthetic",
+        "name": "epenthetic",
+        "form": "[is.kul]",
+        "violations": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    ],
+    "tie_policy": "retain all co-winners",
+    "notes": "",
+    "evaluator": "harmonic-grammar",
+    "temperature": null,
+    "missing_dependencies": [],
+    "expected_winners": [
+      "delete-s"
+    ],
+    "source_locator": "Tessier 2017, physical PDF p. 16, Tableaux (14)-(15), /skul/ panels"
+  },
+  "target": {
+    "id": "tableau:tessier-maxent",
+    "name": "Tessier Tableau (15), MaxEnt",
+    "input": "/skul/",
+    "constraints": [
+      {
+        "id": "constraint:*CC-ONSET",
+        "name": "*CC-ONSET",
+        "weight": {
+          "kind": "exact",
+          "numerator": "6",
+          "denominator": "1"
+        },
+        "stratum": 0,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:*s[stop]-ONSET",
+        "name": "*s[stop]-ONSET",
+        "weight": {
+          "kind": "exact",
+          "numerator": "5",
+          "denominator": "1"
+        },
+        "stratum": 1,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:DEP",
+        "name": "DEP",
+        "weight": {
+          "kind": "exact",
+          "numerator": "2",
+          "denominator": "1"
+        },
+        "stratum": 2,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "constraint:MAX",
+        "name": "MAX",
+        "weight": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "stratum": 3,
+        "enabled": true,
+        "definition": "",
+        "prior_mean": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        },
+        "prior_sigma": {
+          "kind": "exact",
+          "numerator": "100000",
+          "denominator": "1"
+        }
+      }
+    ],
+    "candidates": [
+      {
+        "id": "candidate:faithful",
+        "name": "faithful",
+        "form": "[skul]",
+        "violations": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "candidate:delete-s",
+        "name": "delete-s",
+        "form": "[kul]",
+        "violations": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      },
+      {
+        "id": "candidate:epenthetic",
+        "name": "epenthetic",
+        "form": "[is.kul]",
+        "violations": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "base_mass": {
+          "kind": "exact",
+          "numerator": "1",
+          "denominator": "1"
+        },
+        "notes": "",
+        "observed_frequency": {
+          "kind": "exact",
+          "numerator": "0",
+          "denominator": "1"
+        }
+      }
+    ],
+    "tie_policy": "retain all co-winners",
+    "notes": "",
+    "evaluator": "max-ent",
+    "temperature": null,
+    "missing_dependencies": [],
+    "expected_winners": [
+      "delete-s"
+    ],
+    "source_locator": "Tessier 2017, physical PDF p. 16, Tableaux (14)-(15), /skul/ panels"
+  },
+  "dataset": [
+    {
+      "id": "tableau:tessier-hg",
+      "name": "Tessier Tableau (14), HG",
+      "input": "/skul/",
+      "constraints": [
+        {
+          "id": "constraint:*CC-ONSET",
+          "name": "*CC-ONSET",
+          "weight": {
+            "kind": "exact",
+            "numerator": "6",
+            "denominator": "1"
+          },
+          "stratum": 0,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "constraint:*s[stop]-ONSET",
+          "name": "*s[stop]-ONSET",
+          "weight": {
+            "kind": "exact",
+            "numerator": "5",
+            "denominator": "1"
+          },
+          "stratum": 1,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "constraint:DEP",
+          "name": "DEP",
+          "weight": {
+            "kind": "exact",
+            "numerator": "2",
+            "denominator": "1"
+          },
+          "stratum": 2,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "constraint:MAX",
+          "name": "MAX",
+          "weight": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "stratum": 3,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "id": "candidate:faithful",
+          "name": "faithful",
+          "form": "[skul]",
+          "violations": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "base_mass": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "notes": "",
+          "observed_frequency": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "candidate:delete-s",
+          "name": "delete-s",
+          "form": "[kul]",
+          "violations": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "base_mass": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "notes": "",
+          "observed_frequency": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "candidate:epenthetic",
+          "name": "epenthetic",
+          "form": "[is.kul]",
+          "violations": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "base_mass": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "notes": "",
+          "observed_frequency": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          }
+        }
+      ],
+      "tie_policy": "retain all co-winners",
+      "notes": "",
+      "evaluator": "harmonic-grammar",
+      "temperature": null,
+      "missing_dependencies": [],
+      "expected_winners": [
+        "delete-s"
+      ],
+      "source_locator": "Tessier 2017, physical PDF p. 16, Tableaux (14)-(15), /skul/ panels"
+    },
+    {
+      "id": "tableau:tessier-maxent",
+      "name": "Tessier Tableau (15), MaxEnt",
+      "input": "/skul/",
+      "constraints": [
+        {
+          "id": "constraint:*CC-ONSET",
+          "name": "*CC-ONSET",
+          "weight": {
+            "kind": "exact",
+            "numerator": "6",
+            "denominator": "1"
+          },
+          "stratum": 0,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "constraint:*s[stop]-ONSET",
+          "name": "*s[stop]-ONSET",
+          "weight": {
+            "kind": "exact",
+            "numerator": "5",
+            "denominator": "1"
+          },
+          "stratum": 1,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "constraint:DEP",
+          "name": "DEP",
+          "weight": {
+            "kind": "exact",
+            "numerator": "2",
+            "denominator": "1"
+          },
+          "stratum": 2,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "constraint:MAX",
+          "name": "MAX",
+          "weight": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "stratum": 3,
+          "enabled": true,
+          "definition": "",
+          "prior_mean": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          },
+          "prior_sigma": {
+            "kind": "exact",
+            "numerator": "100000",
+            "denominator": "1"
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "id": "candidate:faithful",
+          "name": "faithful",
+          "form": "[skul]",
+          "violations": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "base_mass": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "notes": "",
+          "observed_frequency": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "candidate:delete-s",
+          "name": "delete-s",
+          "form": "[kul]",
+          "violations": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "base_mass": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "notes": "",
+          "observed_frequency": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          }
+        },
+        {
+          "id": "candidate:epenthetic",
+          "name": "epenthetic",
+          "form": "[is.kul]",
+          "violations": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "base_mass": {
+            "kind": "exact",
+            "numerator": "1",
+            "denominator": "1"
+          },
+          "notes": "",
+          "observed_frequency": {
+            "kind": "exact",
+            "numerator": "0",
+            "denominator": "1"
+          }
+        }
+      ],
+      "tie_policy": "retain all co-winners",
+      "notes": "",
+      "evaluator": "max-ent",
+      "temperature": null,
+      "missing_dependencies": [],
+      "expected_winners": [
+        "delete-s"
+      ],
+      "source_locator": "Tessier 2017, physical PDF p. 16, Tableaux (14)-(15), /skul/ panels"
+    }
+  ],
+  "a_priori_rankings": [],
+  "serial": {
+    "start": "",
+    "moves": [],
+    "maximum_steps": 64
+  },
+  "target_serial": {
+    "start": "",
+    "moves": [],
+    "maximum_steps": 64
+  },
+  "second_order": {
+    "query": "winner-set",
+    "answer_sort": "set of candidate identities",
+    "scope": "complete registered candidate support",
+    "transformation": "identity",
+    "transport": "identity on candidate identities",
+    "layout": "overlay",
+    "comparison_mode": "exact",
+    "tolerance": {
+      "kind": "exact",
+      "numerator": "1",
+      "denominator": "1000000000"
+    },
+    "grid_step": {
+      "kind": "exact",
+      "numerator": "1",
+      "denominator": "1000"
+    },
+    "response_domain": "terminal",
+    "normalizer_policy": "independent",
+    "source_layer": "grammar",
+    "target_layer": "grammar",
+    "layer_transport": "identity",
+    "consumer_mode": "direct",
+    "consumer": ""
+  },
+  "clone_constraint": 0,
+  "plot": "candidate-scores",
+  "presentation": {
+    "compact_rows": true,
+    "show_title": true,
+    "show_author": false,
+    "show_legend": false,
+    "export_scale": 1.0
+  }
+}

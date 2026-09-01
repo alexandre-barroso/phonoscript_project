@@ -1,0 +1,20 @@
+#!/usr/bin/env phonoscript
+// Generic analyst-ledger conformance: every violation count is entered by the
+// phonologist. Constraint definitions are descriptive prose only. No
+// literature source is claimed for these strings.
+project_title("Manual violation-ledger conformance")
+project_evaluator("OT")
+dataset_clear()
+tableau_select("source")
+tableau_name("Analyst-entered deletion ledger")
+tableau_input("/abb/")
+constraints_clear()
+candidates_clear()
+constraint_add("*b", 1, "Assign one violation for every [b].", 0)
+constraint_add("MAX", 1, "Assign one violation for every deleted segment.", 1)
+candidate_add("faithful", "[abb]", [2, 0])
+candidate_add("delete-one", "[ab]", [1, 1])
+candidate_add("delete-two", "[a]", [0, 2])
+assert_winners(["delete-two"])
+let evaluated = evaluate()
+assert_equal(evaluated["winners"], ["delete-two"])

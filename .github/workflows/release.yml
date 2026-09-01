@@ -1,0 +1,222 @@
+name: Project PhonoScript verification and packages
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: "1"
+
+jobs:
+  quality:
+    name: Format and lint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal --no-self-update
+          rustup component add --toolchain 1.88.0 clippy rustfmt
+          rustup default 1.88.0
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+      - name: Check all targets
+        run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
+
+  macos:
+    name: macOS tests and native packages
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal --no-self-update
+          rustup default 1.88.0
+      - name: Test workspace
+        run: cargo test --workspace --locked --all-targets
+      - name: Run PhonoScript analyses and fixture gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo build --locked -p phonoscript --bin phonoscript
+          interpreter="$PWD/target/debug/phonoscript"
+          while IFS= read -r -d '' analysis; do
+            "$interpreter" --check --quiet "$analysis"
+            "$interpreter" --quiet "$analysis"
+          done < <(find phonoscript/validation/analyses -type f -name '*.phont' -print0 | sort -z)
+
+          fixture_root=$(mktemp -d "$RUNNER_TEMP/phonoscript-fixtures.XXXXXX")
+          trap 'rm -rf "$fixture_root"' EXIT
+          generated_root="$fixture_root/generated"
+          emitted_root="$fixture_root/emitted"
+          mkdir -p "$generated_root" "$emitted_root"
+          cargo run --locked -p phonoscript --bin build-reference-fixtures -- "$generated_root"
+          while IFS= read -r -d '' fixture; do
+            generated="$generated_root/$(basename "$fixture")"
+            cmp "$fixture" "$generated"
+            emitted="$emitted_root/$(basename "${fixture%.ottab}").phont"
+            "$interpreter" --emit "$fixture" --write "$emitted" --quiet
+            "$interpreter" --quiet "$emitted"
+          done < <(find phonoscript/fixtures/reference -type f -name '*.ottab' -print0 | sort -z)
+          cmp convalgen/projects/dissertation-complete.ottab \
+            phonoscript/fixtures/reference/dissertation-complete.ottab
+      - name: Run performance budgets
+        run: cargo run --release --locked -p phonoscript --bin qcalc-bench
+      - name: Package independent PhonoScript interpreter
+        run: ./phonoscript/scripts/package-macos.sh
+      - name: Package ConvalGEN application
+        run: ./convalgen/source/scripts/package-macos.sh
+      - name: Upload macOS packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-phonoscript-macos-${{ runner.arch }}
+          if-no-files-found: error
+          path: |
+            phonoscript/compiled/macos/*.tar.gz
+            convalgen/compiled/macos/*.zip
+
+  linux:
+    name: Linux tests and native packages
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GUI and metadata dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes \
+            desktop-file-utils \
+            libgl1-mesa-dev \
+            libgtk-3-dev \
+            libwayland-dev \
+            libx11-dev \
+            libxcb-render0-dev \
+            libxcb-shape0-dev \
+            libxcb-xfixes0-dev \
+            libxkbcommon-dev \
+            libxkbcommon-x11-dev \
+            libxml2-utils \
+            shared-mime-info
+      - name: Install pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal --no-self-update
+          rustup default 1.88.0
+      - name: Test workspace
+        run: cargo test --workspace --locked --all-targets
+      - name: Run PhonoScript analyses and fixture gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo build --locked -p phonoscript --bin phonoscript
+          interpreter="$PWD/target/debug/phonoscript"
+          while IFS= read -r -d '' analysis; do
+            "$interpreter" --check --quiet "$analysis"
+            "$interpreter" --quiet "$analysis"
+          done < <(find phonoscript/validation/analyses -type f -name '*.phont' -print0 | sort -z)
+
+          fixture_root=$(mktemp -d "$RUNNER_TEMP/phonoscript-fixtures.XXXXXX")
+          trap 'rm -rf "$fixture_root"' EXIT
+          generated_root="$fixture_root/generated"
+          emitted_root="$fixture_root/emitted"
+          mkdir -p "$generated_root" "$emitted_root"
+          cargo run --locked -p phonoscript --bin build-reference-fixtures -- "$generated_root"
+          while IFS= read -r -d '' fixture; do
+            generated="$generated_root/$(basename "$fixture")"
+            cmp "$fixture" "$generated"
+            emitted="$emitted_root/$(basename "${fixture%.ottab}").phont"
+            "$interpreter" --emit "$fixture" --write "$emitted" --quiet
+            "$interpreter" --quiet "$emitted"
+          done < <(find phonoscript/fixtures/reference -type f -name '*.ottab' -print0 | sort -z)
+          cmp convalgen/projects/dissertation-complete.ottab \
+            phonoscript/fixtures/reference/dissertation-complete.ottab
+      - name: Run performance budgets
+        run: cargo run --release --locked -p phonoscript --bin qcalc-bench
+      - name: Package independent PhonoScript interpreter
+        run: ./phonoscript/scripts/package-linux.sh
+      - name: Package ConvalGEN application
+        run: ./convalgen/source/scripts/package-linux.sh
+      - name: Upload Linux packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-phonoscript-linux-${{ runner.arch }}
+          if-no-files-found: error
+          path: |
+            phonoscript/compiled/linux/*.tar.gz
+            convalgen/compiled/linux/*.tar.gz
+
+  windows:
+    name: Windows tests and native packages
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust toolchain
+        shell: pwsh
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal --no-self-update
+          rustup default 1.88.0
+      - name: Test workspace
+        shell: pwsh
+        run: cargo test --workspace --locked --all-targets
+      - name: Run PhonoScript analyses and fixture gates
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          cargo build --locked -p phonoscript --bin phonoscript
+          if ($LASTEXITCODE -ne 0) { throw "PhonoScript debug build failed." }
+          $interpreter = Join-Path $PWD "target\debug\phonoscript.exe"
+          Get-ChildItem -Recurse -File "phonoscript\validation\analyses" `
+              -Filter "*.phont" | Sort-Object FullName | ForEach-Object {
+                  & $interpreter --check --quiet $_.FullName
+                  if ($LASTEXITCODE -ne 0) { throw "Static check failed for $($_.FullName)." }
+                  & $interpreter --quiet $_.FullName
+                  if ($LASTEXITCODE -ne 0) { throw "Execution failed for $($_.FullName)." }
+              }
+
+          $fixtureRoot = Join-Path $env:RUNNER_TEMP "phonoscript-fixtures"
+          if (Test-Path $fixtureRoot) { Remove-Item -Recurse -Force $fixtureRoot }
+          $generatedRoot = Join-Path $fixtureRoot "generated"
+          $emittedRoot = Join-Path $fixtureRoot "emitted"
+          New-Item -ItemType Directory -Force -Path $generatedRoot, $emittedRoot | Out-Null
+          cargo run --locked -p phonoscript --bin build-reference-fixtures -- $generatedRoot
+          if ($LASTEXITCODE -ne 0) { throw "Reference fixture generation failed." }
+          Get-ChildItem -File "phonoscript\fixtures\reference\*.ottab" | `
+              Sort-Object FullName | ForEach-Object {
+                  $generated = Join-Path $generatedRoot $_.Name
+                  if ((Get-FileHash $_.FullName).Hash -ne (Get-FileHash $generated).Hash) {
+                      throw "Generated fixture differs from $($_.FullName)."
+                  }
+                  $emitted = Join-Path $emittedRoot ($_.BaseName + ".phont")
+                  & $interpreter --emit $_.FullName --write $emitted --quiet
+                  if ($LASTEXITCODE -ne 0) { throw "Emission failed for $($_.FullName)." }
+                  & $interpreter --quiet $emitted
+                  if ($LASTEXITCODE -ne 0) { throw "Emitted replay failed for $($_.FullName)." }
+              }
+          if ((Get-FileHash "convalgen\projects\dissertation-complete.ottab").Hash -ne `
+              (Get-FileHash "phonoscript\fixtures\reference\dissertation-complete.ottab").Hash) {
+              throw "The canonical dissertation project and engine fixture differ."
+          }
+      - name: Run performance budgets
+        shell: pwsh
+        run: cargo run --release --locked -p phonoscript --bin qcalc-bench
+      - name: Package independent PhonoScript interpreter
+        shell: pwsh
+        run: .\phonoscript\scripts\package-windows.ps1
+      - name: Package ConvalGEN application
+        shell: pwsh
+        run: .\convalgen\source\scripts\package-windows.ps1
+      - name: Upload Windows packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-phonoscript-windows-${{ runner.arch }}
+          if-no-files-found: error
+          path: |
+            phonoscript/compiled/windows/*.zip
+            convalgen/compiled/windows/*.zip

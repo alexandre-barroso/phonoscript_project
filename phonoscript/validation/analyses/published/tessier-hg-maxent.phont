@@ -1,0 +1,47 @@
+#!/usr/bin/env phonoscript
+// Source key: tessier2017learnability.
+// Tessier 2017, physical PDF p. 16, Tableaux (14)-(15), /skul/ panels.
+// The script preserves the printed support, weights, violations, and costs.
+// It corrects the printed exp(-11) decimal and performs the missing finite
+// MaxEnt normalization; it does not claim a complete GEN or learned weights.
+project_title("Tessier /skul/ HG-MaxEnt comparison")
+project_evaluator("HG")
+project_temperature(1)
+dataset_clear()
+
+fn tessier_ledger() {
+    constraints_clear()
+    candidates_clear()
+    constraint_add("*CC-ONSET", 6)
+    constraint_add("*s[stop]-ONSET", 5)
+    constraint_add("DEP", 2)
+    constraint_add("MAX", 1)
+    candidate_add("faithful", "[skul]", [1, 1, 0, 0])
+    candidate_add("delete-s", "[kul]", [0, 0, 0, 1])
+    candidate_add("epenthetic", "[is.kul]", [0, 0, 1, 0])
+}
+
+tableau_select("source")
+tableau_name("Tessier Tableau (14), HG")
+tableau_input("/skul/")
+tableau_source_locator("Tessier 2017, physical PDF p. 16, Tableau (14)")
+tableau_evaluator("HG")
+tessier_ledger()
+assert_equal(harmony("faithful"), 11)
+assert_equal(harmony("delete-s"), 1)
+assert_equal(harmony("epenthetic"), 2)
+assert_winners(["delete-s"])
+
+tableau_select("target")
+tableau_name("Tessier Tableau (15), MaxEnt")
+tableau_input("/skul/")
+tableau_source_locator("Tessier 2017, physical PDF p. 16, Tableau (15)")
+tableau_evaluator("MaxEnt")
+tessier_ledger()
+assert_equal(harmony("faithful"), 11)
+assert_equal(harmony("delete-s"), 1)
+assert_equal(harmony("epenthetic"), 2)
+assert_winners(["delete-s"])
+assert_probability("faithful", 0.00003318890658198521, 1/1000000000000000)
+assert_probability("delete-s", 0.7310343155951328, 1/1000000000000000)
+assert_probability("epenthetic", 0.26893249549828524, 1/1000000000000000)

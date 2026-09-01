@@ -1,0 +1,39 @@
+#!/usr/bin/env phonoscript
+# Completeness, truncation, and refusal remain explicit generation records.
+
+let input = phonological_form("/ab/", ["a", "b"])
+
+let complete = finite_gen(input, {
+    name: "identity support",
+    operations: [{id: "identity", operation: {kind: "identity"}, max_applications_per_candidate: 1}],
+    domain: {max_derivation_steps: 1, max_segments_per_form: 4},
+    resources: {max_candidates: 4, max_operation_expansions: 4, max_variants_per_application: 4},
+    support_claim: {kind: "complete-for-declared-domain", statement: "identity only"},
+    deduplication: "structured-representation",
+})
+
+let exploratory = finite_gen(input, {
+    name: "exploratory support",
+    operations: [{id: "identity", operation: {kind: "identity"}, max_applications_per_candidate: 1}],
+    domain: {max_derivation_steps: 1, max_segments_per_form: 4},
+    resources: {max_candidates: 4, max_operation_expansions: 4, max_variants_per_application: 4},
+    support_claim: {kind: "exploratory"},
+    deduplication: "structured-representation",
+})
+
+let refused = finite_gen(input, {
+    name: "invalid zero bounds",
+    operations: [],
+    domain: {max_derivation_steps: 1, max_segments_per_form: 0},
+    resources: {max_candidates: 0, max_operation_expansions: 0, max_variants_per_application: 0},
+    support_claim: {kind: "complete-for-declared-domain", statement: "invalid by construction"},
+    deduplication: "structured-representation",
+})
+
+assert_equal(complete.status, "complete")
+assert(complete.complete)
+assert_equal(exploratory.status, "truncated")
+assert_equal(exploratory.reasons[0].code, "exploratory-support")
+assert_equal(refused.status, "refused")
+assert(len(refused.reasons) > 0)
+

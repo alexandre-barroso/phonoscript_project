@@ -1,0 +1,76 @@
+#!/usr/bin/env phonoscript
+// Source key: anttilaCho1998variationChange.
+// Anttila & Cho 1998, printed pp. 35--39, grammar lattice (10),
+// Table (11), and Eq. (12); physical PDF pp. 5--9.
+// This finite replay enumerates exactly the three total rankings satisfying
+// *CODA >> ONSET. The resulting winner counts are conditional on the source's
+// uniform-over-these-three-tableaux interpretation.
+project_title("Anttila-Cho linking-r source regression")
+project_evaluator("OT")
+dataset_clear()
+
+fn ranking(order) {
+    constraints_clear()
+    candidates_clear()
+    if order == "C-O-F" {
+        constraint_add("*CODA", 1, "", 0)
+        constraint_add("ONSET", 1, "", 1)
+        constraint_add("FAITH", 1, "", 2)
+    } else if order == "C-F-O" {
+        constraint_add("*CODA", 1, "", 0)
+        constraint_add("FAITH", 1, "", 1)
+        constraint_add("ONSET", 1, "", 2)
+    } else {
+        constraint_add("FAITH", 1, "", 0)
+        constraint_add("*CODA", 1, "", 1)
+        constraint_add("ONSET", 1, "", 2)
+    }
+}
+
+fn marks(order, coda, onset, faith) {
+    if order == "C-O-F" { return [coda, onset, faith] }
+    if order == "C-F-O" { return [coda, faith, onset] }
+    return [faith, coda, onset]
+}
+
+fn panel(name, input_form, order, left, right,
+         left_coda, left_onset, left_faith,
+         right_coda, right_onset, right_faith,
+         expected) {
+    tableau_new(name + " · " + order, input_form)
+    tableau_source_locator("Anttila & Cho 1998, printed Table (11), physical PDF pp. 5--9")
+    ranking(order)
+    candidate_add("candidate-a", left,
+                  marks(order, left_coda, left_onset, left_faith))
+    candidate_add("candidate-b", right,
+                  marks(order, right_coda, right_onset, right_faith))
+    assert_winners([expected])
+}
+
+for order in ["C-O-F", "C-F-O", "F-C-O"] {
+    panel("Wanda left", "Wanda left", order,
+          "Wanda left", "Wanda[r] left",
+          0, 0, 0, 1, 0, 1, "candidate-a")
+}
+
+panel("Homer left", "Homer left", "C-O-F",
+      "Homer left", "Home<r> left", 1, 0, 0, 0, 0, 1, "candidate-b")
+panel("Homer left", "Homer left", "C-F-O",
+      "Homer left", "Home<r> left", 1, 0, 0, 0, 0, 1, "candidate-b")
+panel("Homer left", "Homer left", "F-C-O",
+      "Homer left", "Home<r> left", 1, 0, 0, 0, 0, 1, "candidate-a")
+
+panel("Wanda arrived", "Wanda arrived", "C-O-F",
+      "Wanda arrived", "Wanda[r] arrived", 0, 1, 0, 0, 0, 1, "candidate-b")
+panel("Wanda arrived", "Wanda arrived", "C-F-O",
+      "Wanda arrived", "Wanda[r] arrived", 0, 1, 0, 0, 0, 1, "candidate-a")
+panel("Wanda arrived", "Wanda arrived", "F-C-O",
+      "Wanda arrived", "Wanda[r] arrived", 0, 1, 0, 0, 0, 1, "candidate-a")
+
+for order in ["C-O-F", "C-F-O", "F-C-O"] {
+    panel("Homer arrived", "Homer arrived", order,
+          "Homer arrived", "Home<r> arrived",
+          0, 0, 0, 0, 1, 1, "candidate-a")
+}
+
+assert_equal(len(evaluate()["rows"]), 2)

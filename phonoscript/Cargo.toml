@@ -1,0 +1,38 @@
+[package]
+name = "phonoscript"
+version = "1.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "PhonoScript language and shared engine for constraint-based phonological analysis"
+license = "MIT"
+
+[dependencies]
+base64 = "0.22.1"
+epaint_default_fonts = "0.33.3"
+num-bigint = "0.4.6"
+num-rational = "0.4.2"
+num-traits = "0.2.19"
+png = "0.18.1"
+resvg = "0.48.1"
+rustybuzz = "0.20.1"
+rwml-fonts = "0.1.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+svg2pdf = "0.13.0"
+ttf-noto-sans = { version = "0.1.2", default-features = false, features = ["regular", "bold"] }
+unicode-segmentation = "1.13.3"
+
+[dev-dependencies]
+proptest = "1.9.0"
+
+[[bin]]
+name = "phonoscript"
+path = "src/bin/phonoscript.rs"
+
+[[bin]]
+name = "qcalc-bench"
+path = "src/bin/qcalc-bench.rs"
+
+[[bin]]
+name = "build-reference-fixtures"
+path = "src/bin/build-reference-fixtures.rs"

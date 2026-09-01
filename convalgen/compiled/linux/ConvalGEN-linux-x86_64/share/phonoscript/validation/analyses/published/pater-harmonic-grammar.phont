@@ -1,0 +1,36 @@
+#!/usr/bin/env phonoscript
+// Source key: pater2008gradient.
+// Pater 2008, physical PDF p. 8, Tableau (13): both printed panels.
+project_title("Pater coda devoicing with positional faithfulness")
+project_evaluator("HG")
+dataset_clear()
+
+fn pater_constraints() {
+    constraints_clear()
+    candidates_clear()
+    constraint_add("*VOICE", 3/2)
+    constraint_add("IDENT-VOICE-ONSET", 1)
+    constraint_add("IDENT-VOICE", 1)
+}
+
+tableau_select("source")
+tableau_name("Pater Tableau 13 /da/")
+tableau_input("/da/")
+tableau_source_locator("Pater 2008, physical PDF p. 8, Tableau (13), /da/ panel")
+pater_constraints()
+candidate_add("faithful", "[da]", [1, 0, 0])
+candidate_add("devoiced", "[ta]", [0, 1, 1])
+assert_equal(harmony("faithful"), 3/2)
+assert_equal(harmony("devoiced"), 2)
+assert_winners(["faithful"])
+
+tableau_select("target")
+tableau_name("Pater Tableau 13 /tad/")
+tableau_input("/tad/")
+tableau_source_locator("Pater 2008, physical PDF p. 8, Tableau (13), /tad/ panel")
+pater_constraints()
+candidate_add("faithful", "[tad]", [1, 0, 0])
+candidate_add("devoiced", "[tat]", [0, 0, 1])
+assert_equal(harmony("faithful"), 3/2)
+assert_equal(harmony("devoiced"), 1)
+assert_winners(["devoiced"])

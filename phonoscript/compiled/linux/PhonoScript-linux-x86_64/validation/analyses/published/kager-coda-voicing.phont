@@ -1,0 +1,31 @@
+#!/usr/bin/env phonoscript
+// Source key: kager1999optimality.
+// Kager 1999, printed pp. 16-17: source-exact finite Dutch final-devoicing
+// tableau and the printed English reranking.
+project_title("Kager final-voicing ranking contrast")
+project_evaluator("OT")
+dataset_clear()
+
+tableau_select("source")
+tableau_name("Dutch /bed/")
+tableau_input("/bɛd/")
+tableau_source_locator("Kager 1999, printed p. 16, Tableau (18)")
+constraints_clear()
+candidates_clear()
+constraint_add("*VOICED-CODA", 1, "", 0)
+constraint_add("IDENT-IO(voice)", 1, "", 1)
+candidate_add("faithful", "[bɛd]", [1, 0])
+candidate_add("devoiced", "[bɛt]", [0, 1])
+assert_winners(["devoiced"])
+
+tableau_select("target")
+tableau_name("English /bed/")
+tableau_input("/bɛd/")
+tableau_source_locator("Kager 1999, printed p. 17, Tableau (23)")
+constraints_clear()
+candidates_clear()
+constraint_add("IDENT-IO(voice)", 1, "", 0)
+constraint_add("*VOICED-CODA", 1, "", 1)
+candidate_add("faithful", "[bɛd]", [0, 1])
+candidate_add("devoiced", "[bɛt]", [1, 0])
+assert_winners(["faithful"])

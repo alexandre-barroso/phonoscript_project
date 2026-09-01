@@ -1,0 +1,89 @@
+#!/usr/bin/env phonoscript
+// Goldwater and Johnson (2003), Table 2, physical PDF page 6.
+// The four candidate ledgers are exact transcriptions. The article does not
+// publish the fitted Finnish weights, so this program records that dependency
+// explicitly and never substitutes zero, null, or inferred parameters.
+project_title("Goldwater-Johnson Finnish candidate ledger")
+project_author("Alexandre Menezes Barroso")
+project_description("Exact Table 2 violation ledgers with the unpublished fitted weights retained as a typed MaxEnt admission dependency.")
+project_evaluator("MaxEnt")
+project_temperature(1)
+dataset_clear()
+
+fn add_register() {
+    constraint_add_unweighted("STRESS-TO-WEIGHT")
+    constraint_add_unweighted("WEIGHT-TO-STRESS")
+    constraint_add_unweighted("*Í")
+    constraint_add_unweighted("*Ó")
+    constraint_add_unweighted("*Á")
+    constraint_add_unweighted("*Ĭ")
+    constraint_add_unweighted("*Ŏ")
+    constraint_add_unweighted("*Ă")
+    constraint_add_unweighted("*H.H")
+    constraint_add_unweighted("*L.L")
+    constraint_add_unweighted("*LAPSE")
+}
+
+fn add_table_2_case(input_form, weak_form, weak_marks, strong_form, strong_marks) {
+    let name = "Goldwater-Johnson Table 2: " + input_form
+    tableau_new(name, input_form)
+    tableau_evaluator("MaxEnt")
+    tableau_source_locator("Goldwater & Johnson 2003, Table 2, PDF physical page 6")
+    tableau_notes("Published candidate and violation transcription; Finnish fitted weights are not published in the article.")
+    constraints_clear()
+    candidates_clear()
+    add_register()
+    candidate_add("weak", weak_form, weak_marks)
+    candidate_add("strong", strong_form, strong_marks)
+    missing_dependency_add(
+        "PE-ADMIT-MISSING-FITTED-WEIGHTS",
+        "admission",
+        "evaluator",
+        "constraints.fitted-weights",
+        "Goldwater and Johnson (2003) do not publish the Finnish fitted weight vector required to evaluate this MaxEnt ledger",
+        "Supply a source-verified fitted weight vector; do not infer weights from the displayed percentages.",
+        "MaxEnt",
+    )
+}
+
+add_table_2_case(
+    "kala",
+    "ká.lo.jen",
+    [1, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1],
+    "ká.loi.den",
+    [1, 2, 0, 0, 0, 0, 0, 1, 1, 0, 1],
+)
+add_table_2_case(
+    "naapuri",
+    "náa.pu.ri.en",
+    [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 2],
+    "náa.pu.rèi.den",
+    [0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0],
+)
+add_table_2_case(
+    "ministeri",
+    "mı́.nis.te.ri.en",
+    [1, 2, 0, 0, 0, 1, 0, 0, 0, 1, 3],
+    "mı́.nis.te.rèi.den",
+    [1, 2, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+)
+add_table_2_case(
+    "maailma",
+    "máa.il.mo.jen",
+    [0, 2, 0, 0, 0, 0, 0, 1, 1, 0, 2],
+    "máa.il.mòi.den",
+    [0, 2, 0, 0, 1, 0, 0, 0, 3, 0, 0],
+)
+
+tableau_select("Goldwater-Johnson Table 2: kala")
+assert_equal(violation_get("weak", "STRESS-TO-WEIGHT"), 1)
+assert_equal(violation_get("strong", "*H.H"), 1)
+tableau_select("Goldwater-Johnson Table 2: naapuri")
+assert_equal(violation_get("strong", "*Í"), 1)
+tableau_select("Goldwater-Johnson Table 2: ministeri")
+assert_equal(violation_get("weak", "*LAPSE"), 3)
+tableau_select("Goldwater-Johnson Table 2: maailma")
+assert_equal(violation_get("strong", "*Á"), 1)
+
+tableau_copy("Goldwater-Johnson Table 2: kala", "source")
+tableau_copy("Goldwater-Johnson Table 2: kala", "target")

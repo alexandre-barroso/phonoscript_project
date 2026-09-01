@@ -1,0 +1,41 @@
+#!/usr/bin/env phonoscript
+# Record-driven strict-OT regression for Dutch final devoicing.
+
+let analysis = {
+    title: "Dutch final devoicing",
+    input: "/bɛd/",
+    constraints: ["*VOICED-CODA", "IDENT-IO(voice)"],
+    faithful: {
+        name: "faithful",
+        form: "[bɛd]",
+        violations: [1, 0],
+    },
+    devoiced: {
+        name: "devoiced",
+        form: "[bɛt]",
+        violations: [0, 1],
+    },
+    "source note": null,
+}
+
+project_title(analysis["title"])
+project_evaluator("OT")
+tableau_input(analysis["input"])
+constraints_clear()
+candidates_clear()
+constraint_add(analysis["constraints"][0], 2)
+constraint_add(analysis["constraints"][1], 1)
+candidate_add(
+    analysis["faithful"]["name"],
+    analysis["faithful"]["form"],
+    analysis["faithful"]["violations"],
+)
+candidate_add(
+    analysis["devoiced"]["name"],
+    analysis["devoiced"]["form"],
+    analysis["devoiced"]["violations"],
+)
+
+assert_winners(["devoiced"])
+assert_equal(analysis["source note"], null)
+
