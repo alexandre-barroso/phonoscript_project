@@ -867,11 +867,12 @@ impl Analyzer {
             | BinaryOperator::LessEqual
             | BinaryOperator::Greater
             | BinaryOperator::GreaterEqual => {
-                if !matches!(left_type, StaticType::Unknown)
-                    && !matches!(right_type, StaticType::Unknown)
-                    && !((left_type == StaticType::Number && right_type == StaticType::Number)
-                        || (left_type == StaticType::Text && right_type == StaticType::Text))
-                {
+                let both_known = !matches!(left_type, StaticType::Unknown)
+                    && !matches!(right_type, StaticType::Unknown);
+                let comparable = (left_type == StaticType::Number
+                    && right_type == StaticType::Number)
+                    || (left_type == StaticType::Text && right_type == StaticType::Text);
+                if both_known && !comparable {
                     self.diagnostics.push(AnalysisDiagnostic::error(
                         AnalysisDiagnosticCode::TypeMismatch,
                         format!(

@@ -375,7 +375,7 @@ fn cli_module_root_executes_checks_and_maps_nested_json_sources() {
         .arg(tree.entry())
         .output()
         .expect("run module-aware CLI check");
-    assert!(checked.status.success(), "{:?}", checked);
+    assert!(checked.status.success(), "{checked:?}");
     let checked_json: serde_json::Value =
         serde_json::from_slice(&checked.stdout).expect("decode check JSON");
     assert_eq!(checked_json["status"], "ok");
@@ -388,7 +388,7 @@ fn cli_module_root_executes_checks_and_maps_nested_json_sources() {
         .arg(tree.entry())
         .output()
         .expect("run module-aware CLI execution");
-    assert!(executed.status.success(), "{:?}", executed);
+    assert!(executed.status.success(), "{executed:?}");
     let executed_json: serde_json::Value =
         serde_json::from_slice(&executed.stdout).expect("decode execution JSON");
     assert_eq!(executed_json["value"]["type"], "exact_number");

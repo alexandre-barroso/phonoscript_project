@@ -3093,10 +3093,11 @@ mod tests {
             let expected = terms.iter().fold(BigInt::zero(), |total, (weight, violation)| {
                 total + BigInt::from(*weight) * BigInt::from(*violation)
             });
+            let expected = BigRational::from_integer(expected);
             let result = evaluate(&document.source, EvaluatorKind::MaxEnt, 1.0);
             prop_assert_eq!(
                 result.rows[0].exact_harmony.as_ref(),
-                Some(&BigRational::from_integer(expected)),
+                Some(&expected),
             );
             prop_assert_eq!(result.rows[0].probability, Some(1.0));
         }

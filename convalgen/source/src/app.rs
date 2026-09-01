@@ -1191,6 +1191,18 @@ impl ConvalgenApp {
             let alt = input.modifiers.alt;
             let editing_enabled = self.shortcut_profile != ShortcutProfile::Disabled;
             let laptop = self.shortcut_profile == ShortcutProfile::Laptop;
+            let add_candidate = editing_enabled
+                && if laptop {
+                    command && shift && input.key_pressed(Key::A)
+                } else {
+                    command && !shift && input.key_pressed(Key::Enter)
+                };
+            let add_constraint = editing_enabled
+                && if laptop {
+                    command && shift && input.key_pressed(Key::C)
+                } else {
+                    command && shift && input.key_pressed(Key::Enter)
+                };
             (
                 command && input.key_pressed(Key::N),
                 command && input.key_pressed(Key::O),
@@ -1198,12 +1210,8 @@ impl ConvalgenApp {
                 command && shift && input.key_pressed(Key::S),
                 command && input.key_pressed(Key::R),
                 command && shift && input.key_pressed(Key::P),
-                editing_enabled
-                    && ((laptop && command && shift && input.key_pressed(Key::A))
-                        || (!laptop && command && !shift && input.key_pressed(Key::Enter))),
-                editing_enabled
-                    && ((laptop && command && shift && input.key_pressed(Key::C))
-                        || (!laptop && command && shift && input.key_pressed(Key::Enter))),
+                add_candidate,
+                add_constraint,
                 editing_enabled && command && input.key_pressed(Key::D),
                 editing_enabled
                     && ((!laptop && input.key_pressed(Key::Delete))

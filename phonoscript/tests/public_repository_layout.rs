@@ -1,7 +1,7 @@
 //! Public-repository layout contract.
 //!
-//! Project PhonoScript deliberately keeps one Markdown landing page and two
-//! long-form manuals under `docs/`. This regression prevents generated notes
+//! Project PhonoScript deliberately keeps one Markdown landing page and three
+//! compiled manuals under `docs/`. This regression prevents generated notes
 //! or internal agent records from silently becoming public documentation.
 
 use std::fs;
@@ -57,12 +57,14 @@ fn root_readme_is_the_only_public_markdown_file() {
 }
 
 #[test]
-fn both_public_manuals_have_one_tex_source_and_one_pdf_in_docs() {
+fn all_three_public_manuals_have_substantive_pdfs_in_docs() {
     let docs = workspace_root().join("docs");
-    for stem in ["PhonoScript-Language-Manual", "ConvalGEN-User-Guide"] {
-        let tex = docs.join(format!("{stem}.tex"));
+    for stem in [
+        "PhonoScript-Language-Manual",
+        "ConvalGEN-User-Guide",
+        "Q-Calculus-Manual",
+    ] {
         let pdf = docs.join(format!("{stem}.pdf"));
-        assert!(tex.is_file(), "missing manual source {}", tex.display());
         assert!(pdf.is_file(), "missing compiled manual {}", pdf.display());
         assert!(
             fs::metadata(&pdf).expect("manual metadata").len() > 1_000,
@@ -71,4 +73,13 @@ fn both_public_manuals_have_one_tex_source_and_one_pdf_in_docs() {
         );
     }
     assert!(!docs.join("README.md").exists());
+
+    let ignore =
+        fs::read_to_string(workspace_root().join(".gitignore")).expect("workspace .gitignore");
+    assert!(ignore.lines().any(|line| line.trim() == "*.[tT][eE][xX]"));
+    assert!(
+        ignore
+            .lines()
+            .any(|line| line.trim() == "!/docs/*.[pP][dD][fF]")
+    );
 }

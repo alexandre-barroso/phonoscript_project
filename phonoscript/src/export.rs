@@ -3077,8 +3077,7 @@ pub fn write_with_scale(
                 || width * height > MAX_PNG_PIXELS as f64
             {
                 return Err(format!(
-                    "PNG export refused: requested {:.0} × {:.0} pixels exceeds the {}-pixel or {}-per-side safety limit; export SVG/PDF or choose a smaller explicit scale",
-                    width, height, MAX_PNG_PIXELS, MAX_PNG_SIDE
+                    "PNG export refused: requested {width:.0} × {height:.0} pixels exceeds the {MAX_PNG_PIXELS}-pixel or {MAX_PNG_SIDE}-per-side safety limit; export SVG/PDF or choose a smaller explicit scale"
                 ));
             }
             let width = width as u32;
