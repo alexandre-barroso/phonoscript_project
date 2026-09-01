@@ -21,7 +21,7 @@ jobs:
     name: Format and lint
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install pinned Rust toolchain
         run: |
           rustup toolchain install 1.88.0 --profile minimal --no-self-update
@@ -36,7 +36,7 @@ jobs:
     name: macOS tests and native packages
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install pinned Rust toolchain
         run: |
           rustup toolchain install 1.88.0 --profile minimal --no-self-update
@@ -76,7 +76,7 @@ jobs:
       - name: Package ConvalGEN application
         run: ./convalgen/source/scripts/package-macos.sh
       - name: Upload macOS packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: project-phonoscript-macos-${{ runner.arch }}
           if-no-files-found: error
@@ -88,7 +88,7 @@ jobs:
     name: Linux tests and native packages
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install GUI and metadata dependencies
         run: |
           sudo apt-get update
@@ -144,7 +144,7 @@ jobs:
       - name: Package ConvalGEN application
         run: ./convalgen/source/scripts/package-linux.sh
       - name: Upload Linux packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: project-phonoscript-linux-${{ runner.arch }}
           if-no-files-found: error
@@ -156,7 +156,7 @@ jobs:
     name: Windows tests and native packages
     runs-on: windows-2025
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Locate Windows resource compiler
         shell: pwsh
         run: |
@@ -225,7 +225,7 @@ jobs:
         shell: pwsh
         run: .\convalgen\source\scripts\package-windows.ps1
       - name: Upload Windows packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: project-phonoscript-windows-${{ runner.arch }}
           if-no-files-found: error

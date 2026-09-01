@@ -1,1 +1,2 @@
 *.phont text eol=lf whitespace=-blank-at-eof
+*.ottab text eol=lf
