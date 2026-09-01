@@ -18,19 +18,6 @@ are separate compatibility contracts.
 - [PhonoScript Language and Engine Manual](docs/PhonoScript-Language-Manual.pdf)
 - [ConvalGEN User Guide](docs/ConvalGEN-User-Guide.pdf)
 
-The corresponding self-contained LaTeX sources are stored beside the PDFs in
-`docs/`.
-
-Rebuild both manuals with a TeX distribution that provides XeLaTeX,
-`latexmk`, Source Sans, and Source Code Pro:
-
-```bash
-latexmk -xelatex -interaction=nonstopmode docs/PhonoScript-Language-Manual.tex
-latexmk -xelatex -interaction=nonstopmode docs/ConvalGEN-User-Guide.tex
-latexmk -c docs/PhonoScript-Language-Manual.tex
-latexmk -c docs/ConvalGEN-User-Guide.tex
-```
-
 ## Repository layout
 
 | Path | Contents |
