@@ -19,9 +19,6 @@ are separate compatibility contracts.
 - [ConvalGEN User Guide](docs/ConvalGEN-User-Guide.pdf)
 - [Q-Calculus Mathematical and Analyst Manual](docs/Q-Calculus-Manual.pdf)
 
-The public repository carries the compiled manuals. Their LaTeX sources and
-build auxiliaries remain local and are excluded by `.gitignore`.
-
 ## Repository layout
 
 | Path | Contents |
@@ -31,29 +28,6 @@ build auxiliaries remain local and are excluded by `.gitignore`.
 | `docs/` | The three compiled public manuals |
 | `.github/workflows/release.yml` | Formatting, linting, test, packaging, and artifact workflow |
 | `Cargo.toml` | Shared Rust workspace definition |
-
-## Public repository contents
-
-The Git tree is deliberately a source-and-runtime distribution rather than a
-mirror of the development workspace. It contains the Rust workspace, tests,
-configuration, workflow, licenses and citation metadata; the authored
-`.phont` programs and `.ottab` projects used for validation; unpacked macOS,
-Linux, and Windows distributions; the three manuals above; and this landing
-page.
-
-The following remain local or rebuildable and are not versioned:
-
-- Cargo build output and local reference material;
-- every Markdown file except this root `README.md`;
-- LaTeX sources and auxiliary files;
-- PDFs outside `docs/`;
-- generated UI screenshots and tableau or plot export corpora; and
-- compressed `.zip` and `.tar.gz` release archives.
-
-An ignored file can therefore exist in a development checkout without being
-part of a GitHub clone. The tracked source, fixtures, tests, and packaging
-scripts are the authoritative public inputs for regenerating excluded build
-and validation output.
 
 ## Analysis contract
 
