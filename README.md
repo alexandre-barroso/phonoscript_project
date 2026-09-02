@@ -11,6 +11,7 @@
   <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/tag/1.2.0"><img src="https://img.shields.io/badge/release-1.2.0-111827?style=flat-square" alt="PhonoScript release 1.2.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/alexandre-barroso/phonoscript_project?style=flat-square&amp;color=111827" alt="MIT License"></a>
   <img src="https://img.shields.io/badge/Rust-1.88%2B-111827?style=flat-square&amp;logo=rust&amp;logoColor=white" alt="Rust 1.88 or newer">
+  <a href="https://doi.org/10.5281/zenodo.22258363"><img src="https://zenodo.org/badge/1354085436.svg" alt="DOI"></a>
 </p>
 
 <p align="center">
