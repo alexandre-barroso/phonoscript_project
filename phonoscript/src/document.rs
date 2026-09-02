@@ -75,7 +75,7 @@ mod tests {
         let original = reference_cases::dissertation_second_order();
         let bytes = encode(&original).expect("encodes");
         let text = String::from_utf8(bytes.clone()).expect("utf8");
-        assert!(text.contains("\"format\": \"convalgen-analysis\""));
+        assert!(text.contains("\"format\": \"phonoscript-analysis\""));
         assert!(!text.contains("file_path"));
         let restored = decode(&bytes).expect("decodes");
         assert_eq!(restored, original);

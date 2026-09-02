@@ -1,7 +1,7 @@
 //! Executable-corpus checks for the public PhonoScript programs.
 //!
 //! Every checked-in program is run from a blank document through the same
-//! transactional runtime that ConvalGEN embeds.  The programs contain their
+//! transactional runtime that PhonoScript GUI embeds.  The programs contain their
 //! own result assertions; this test prevents a syntax or engine change from
 //! leaving the public corpus as unexecuted documentation.
 

@@ -1,6 +1,6 @@
 [package]
 name = "phonoscript"
-version = "1.1.0"
+version = "1.2.0"
 edition = "2024"
 rust-version = "1.88"
 description = "PhonoScript language and shared engine for constraint-based phonological analysis"

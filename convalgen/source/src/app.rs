@@ -71,7 +71,7 @@ fn check_phont_source(source: &str, path: Option<&Path>, dirty: bool) -> Vec<Run
     } else {
         (
             "imports require a saved PhonoScript entry file",
-            "Save this script as a .phont file. ConvalGEN confines module resolution to that file's containing directory.",
+            "Save this script as a .phont file. PhonoScript GUI confines module resolution to that file's containing directory.",
         )
     };
     let mut replaced = false;
@@ -449,7 +449,7 @@ impl ConvalgenApp {
             row_filter: String::new(),
             status: "Ready".to_owned(),
             console: vec![
-                "ConvalGEN command interface ready. Type help to list commands.".to_owned(),
+                "PhonoScript GUI command interface ready. Type help to list commands.".to_owned(),
             ],
             command: String::new(),
             show_navigator: true,
@@ -739,7 +739,7 @@ impl ConvalgenApp {
 
     fn open_dialog(&mut self) {
         if let Some(path) = rfd::FileDialog::new()
-            .add_filter("ConvalGEN analysis", &[document::EXTENSION])
+            .add_filter("PhonoScript GUI analysis", &[document::EXTENSION])
             .add_filter("PhonoScript script", &[phonoscript_runtime::EXTENSION])
             .pick_file()
         {
@@ -943,7 +943,7 @@ impl ConvalgenApp {
 
     fn save_as(&mut self) {
         if let Some(path) = rfd::FileDialog::new()
-            .add_filter("ConvalGEN analysis", &[document::EXTENSION])
+            .add_filter("PhonoScript GUI analysis", &[document::EXTENSION])
             .set_file_name("analysis.ottab")
             .save_file()
         {
@@ -1540,7 +1540,7 @@ impl ConvalgenApp {
                         }
                     });
                     ui.menu_button("Help", |ui| {
-                        if ui.button("ConvalGEN Help").clicked() {
+                        if ui.button("PhonoScript GUI Help").clicked() {
                             self.show_help = true;
                             ui.close();
                         }
@@ -1556,7 +1556,7 @@ impl ConvalgenApp {
                             self.phont_output.extend(phonoscript_reference());
                             ui.close();
                         }
-                        if ui.button("About ConvalGEN").clicked() {
+                        if ui.button("About PhonoScript GUI").clicked() {
                             self.show_about = true;
                             ui.close();
                         }
@@ -1578,7 +1578,12 @@ impl ConvalgenApp {
                 let compact = toolbar_width < TOOLBAR_BREAKPOINT;
                 ui.horizontal_wrapped(|ui| {
                     if !compact {
-                        ui.label(RichText::new("ConvalGEN").size(15.0).strong().color(INK));
+                        ui.label(
+                            RichText::new("PhonoScript GUI")
+                                .size(15.0)
+                                .strong()
+                                .color(INK),
+                        );
                         ui.separator();
                     }
                     if toolbar_sized_button(
@@ -2509,7 +2514,7 @@ impl ConvalgenApp {
                     .on_hover_text(&status);
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         ui.label(
-                            RichText::new(format!("ConvalGEN {}", env!("CARGO_PKG_VERSION")))
+                            RichText::new(format!("PhonoScript GUI {}", env!("CARGO_PKG_VERSION")))
                                 .small()
                                 .color(MUTED),
                         );
@@ -4218,6 +4223,7 @@ impl ConvalgenApp {
                 "evaluator ot|hg|maxent | evaluate | infer ranking | learn maxent | diagnose | typology".to_owned(),
                 "workspace project|tableau|serial|second-order|diagnostics|q|plots|phonoscript"
                     .to_owned(),
+                "console show|hide".to_owned(),
                 "title TEXT | input TEXT | add candidate NAME | add constraint NAME [WEIGHT]".to_owned(),
                 "set weight INDEX VALUE | set stratum INDEX VALUE | set mark ROW COLUMN VALUE | set observed ROW VALUE".to_owned(),
                 "query winner|surface|order|probability|support | plot scores|probabilities|weights|serial|shares".to_owned(),
@@ -4264,6 +4270,8 @@ impl ConvalgenApp {
                     }
                 };
             }
+            "console" if arguments.first() == Some(&"show") => self.show_console = true,
+            "console" if arguments.first() == Some(&"hide") => self.show_console = false,
             "title" if !arguments.is_empty() => {
                 self.document.title = arguments.join(" ");
                 self.mark_changed();
@@ -4428,7 +4436,7 @@ impl ConvalgenApp {
 
     fn about(&mut self, context: &egui::Context) {
         if self.show_about {
-            egui::Window::new("About ConvalGEN")
+            egui::Window::new("About PhonoScript GUI")
                 .default_width(420.0)
                 .min_width(320.0)
                 .max_width(560.0)
@@ -4436,7 +4444,7 @@ impl ConvalgenApp {
                 .resizable(true)
                 .open(&mut self.show_about)
                 .show(context, |ui| {
-                    ui.heading("ConvalGEN");
+                    ui.heading("PhonoScript GUI");
                     ui.label(format!("Version {}", env!("CARGO_PKG_VERSION")));
                     ui.label("Professional constraint-grammar analysis");
                     ui.separator();
@@ -4458,7 +4466,7 @@ impl ConvalgenApp {
             return;
         }
         let mut open = self.show_preferences;
-        egui::Window::new("ConvalGEN Preferences")
+        egui::Window::new("PhonoScript GUI Preferences")
             .default_width(520.0)
             .min_width(420.0)
             .resizable(true)
@@ -4550,7 +4558,7 @@ impl ConvalgenApp {
             return;
         }
         let mut open = self.show_help;
-        egui::Window::new("ConvalGEN Help")
+        egui::Window::new("PhonoScript GUI Help")
             .default_size([620.0, 620.0])
             .min_size([440.0, 360.0])
             .resizable(true)
@@ -4562,7 +4570,7 @@ impl ConvalgenApp {
                     ui.label("A .ottab project may contain many tableaux. Use the navigator or the tableau selector to switch between them; Project creates, duplicates, moves, and removes tableaux.");
                     ui.separator();
                     ui.heading("Editing a tableau");
-                    ui.label("Add or remove candidates and constraints with the action bars. Click the input, a candidate identity or form, a constraint name, a rank or weight, or an analyst-entered violation to edit it directly. Every violation count is entered by the phonologist: ConvalGEN never infers marks from candidate structure, candidate form, constraint name, or constraint definition. MaxEnt observed counts and prior masses remain input cells; costs and probabilities are derived and read-only. Press Delete to clear the selected editable cell. Move candidates with Option+Up or Option+Down; move constraints and their violation columns with Option+Left or Option+Right. In OT, moving a constraint establishes a strict ranking. Tie left places the selected constraint in the preceding stratum.");
+                    ui.label("Add or remove candidates and constraints with the action bars. Click the input, a candidate identity or form, a constraint name, a rank or weight, or an analyst-entered violation to edit it directly. Every violation count is entered by the phonologist: PhonoScript GUI never infers marks from candidate structure, candidate form, constraint name, or constraint definition. MaxEnt observed counts and prior masses remain input cells; costs and probabilities are derived and read-only. Press Delete to clear the selected editable cell. Move candidates with Option+Up or Option+Down; move constraints and their violation columns with Option+Left or Option+Right. In OT, moving a constraint establishes a strict ranking. Tie left places the selected constraint in the preceding stratum.");
                     ui.separator();
                     ui.heading("Evaluation and ties");
                     ui.label("OT uses lexicographic strict domination by ranked strata. HG minimizes weighted violation cost. MaxEnt converts weighted costs and base masses into a normalized probability law. The tie policy may retain every co-winner, select the first listed candidate, or require a unique winner; an unresolved required-unique tie is reported explicitly.");
@@ -4571,7 +4579,7 @@ impl ConvalgenApp {
                     ui.label("Source and target analyses are evaluated independently. A declared transport aligns their typed answers; it does not calculate the target answer. Missing formation or admission dependencies return a structured not-evaluated result instead of false, NaN, or an empty answer.");
                     ui.separator();
                     ui.heading("PhonoScript");
-                    ui.label("PhonoScript (.phont) is ConvalGEN’s transactional scripting language. A script may create projects and tableaux, generate candidates, evaluate OT/HG/MaxEnt and serial analyses, assert results, infer rankings, train MaxEnt weights, run Q-Calculus comparisons, and export figures. A failing command reports its source line and leaves the open project unchanged.");
+                    ui.label("PhonoScript (.phont) is the transactional language embedded in PhonoScript GUI. A script may create projects and tableaux, generate candidates, evaluate OT/HG/MaxEnt and serial analyses, assert results, infer rankings, train MaxEnt weights, run Q-Calculus comparisons, and export figures. A failing command reports its source line and leaves the open project unchanged.");
                     ui.separator();
                     ui.heading("Saving and export");
                     ui.label("Save projects as .ottab. Export current tableaux, Second-Order Tableaux, plots, or complete projects as editable SVG, PNG, or PDF. The native renderer follows the bundled secondordertableau.sty visual specification, crops each figure to its content, and never emits .tex. Export presentation defaults are available under Options → Preferences.");
@@ -4626,7 +4634,7 @@ impl eframe::App for ConvalgenApp {
         self.preferences(context);
         self.help(context);
         self.about(context);
-        let window_title = format!("{} — ConvalGEN", self.display_name());
+        let window_title = format!("{} — PhonoScript GUI", self.display_name());
         if window_title != self.last_window_title {
             context.send_viewport_cmd(egui::ViewportCommand::Title(window_title.clone()));
             self.last_window_title = window_title;

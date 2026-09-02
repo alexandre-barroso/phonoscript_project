@@ -1,5 +1,5 @@
 param(
-    [string]$InstallRoot = (Join-Path $env:LOCALAPPDATA "Programs\ConvalGEN")
+    [string]$InstallRoot = (Join-Path $env:LOCALAPPDATA "Programs\PhonoScript GUI")
 )
 
 $ErrorActionPreference = "Stop"
@@ -40,21 +40,21 @@ function Add-CurrentUserPath {
 
 $packageRoot = $PSScriptRoot
 New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
-Copy-Item -Force (Join-Path $packageRoot "convalgen.exe") $InstallRoot
+Copy-Item -Force (Join-Path $packageRoot "phonoscript-gui.exe") $InstallRoot
 Copy-Item -Force (Join-Path $packageRoot "phonoscript.exe") $InstallRoot
-Copy-Item -Force (Join-Path $packageRoot "ConvalGEN.ico") $InstallRoot
-Copy-Item -Force (Join-Path $packageRoot "CONVALGEN-LICENSE") $InstallRoot
+Copy-Item -Force (Join-Path $packageRoot "PhonoScript-GUI.ico") $InstallRoot
+Copy-Item -Force (Join-Path $packageRoot "PHONOSCRIPT-GUI-LICENSE") $InstallRoot
 Copy-Item -Force (Join-Path $packageRoot "PHONOSCRIPT-LICENSE") $InstallRoot
 Copy-Item -Recurse -Force (Join-Path $packageRoot "Documentation") $InstallRoot
 Copy-Item -Recurse -Force (Join-Path $packageRoot "Projects") $InstallRoot
 Copy-Item -Recurse -Force (Join-Path $packageRoot "Validation") $InstallRoot
 
-$convalgen = Join-Path $InstallRoot "convalgen.exe"
+$phonoscriptGui = Join-Path $InstallRoot "phonoscript-gui.exe"
 $phonoscript = Join-Path $InstallRoot "phonoscript.exe"
-$convalgenIcon = Join-Path $InstallRoot "ConvalGEN.ico"
+$phonoscriptGuiIcon = Join-Path $InstallRoot "PhonoScript-GUI.ico"
 
 # Register both commands for the current user without elevation.
-foreach ($application in @("convalgen.exe", "phonoscript.exe")) {
+foreach ($application in @("phonoscript-gui.exe", "phonoscript.exe")) {
     $applicationPath = Join-Path $InstallRoot $application
     $appPathsKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\App Paths\$application"
     Set-RegistryDefault -Path $appPathsKey -Value $applicationPath
@@ -62,18 +62,18 @@ foreach ($application in @("convalgen.exe", "phonoscript.exe")) {
 }
 Add-CurrentUserPath -Directory $InstallRoot
 
-# ConvalGEN analyses open in the graphical application.
-Set-RegistryDefault -Path "HKCU:\Software\Classes\ConvalGEN.Analysis" `
-    -Value "ConvalGEN analysis"
-Set-RegistryDefault -Path "HKCU:\Software\Classes\ConvalGEN.Analysis\DefaultIcon" `
-    -Value ('"' + $convalgenIcon + '",0')
-Set-RegistryDefault -Path "HKCU:\Software\Classes\ConvalGEN.Analysis\shell\open\command" `
-    -Value ('"' + $convalgen + '" "%1"')
+# PhonoScript GUI analyses open in the graphical application.
+Set-RegistryDefault -Path "HKCU:\Software\Classes\PhonoScriptGUI.Analysis" `
+    -Value "PhonoScript GUI analysis"
+Set-RegistryDefault -Path "HKCU:\Software\Classes\PhonoScriptGUI.Analysis\DefaultIcon" `
+    -Value ('"' + $phonoscriptGuiIcon + '",0')
+Set-RegistryDefault -Path "HKCU:\Software\Classes\PhonoScriptGUI.Analysis\shell\open\command" `
+    -Value ('"' + $phonoscriptGui + '" "%1"')
 Set-RegistryDefault -Path "HKCU:\Software\Classes\.ottab" `
-    -Value "ConvalGEN.Analysis"
+    -Value "PhonoScriptGUI.Analysis"
 
-# The normal .phont action executes the script with PhonoScript. ConvalGEN is
-# also registered as an explicit graphical editor through Open With.
+# The normal .phont action executes the script with PhonoScript. PhonoScript
+# GUI is also registered as an explicit graphical editor through Open With.
 Set-RegistryDefault -Path "HKCU:\Software\Classes\PhonoScript.Script" `
     -Value "PhonoScript script"
 Set-RegistryDefault -Path "HKCU:\Software\Classes\PhonoScript.Script\DefaultIcon" `
@@ -85,17 +85,17 @@ Set-RegistryDefault -Path "HKCU:\Software\Classes\.phont" `
 New-Item -Force -Path "HKCU:\Software\Classes\.phont\OpenWithProgids" | Out-Null
 New-ItemProperty -Force `
     -Path "HKCU:\Software\Classes\.phont\OpenWithProgids" `
-    -Name "ConvalGEN.PhonoScript" `
+    -Name "PhonoScriptGUI.Editor" `
     -PropertyType String `
     -Value "" | Out-Null
-Set-RegistryDefault -Path "HKCU:\Software\Classes\ConvalGEN.PhonoScript" `
-    -Value "PhonoScript script in ConvalGEN"
-Set-RegistryDefault -Path "HKCU:\Software\Classes\ConvalGEN.PhonoScript\shell\open\command" `
-    -Value ('"' + $convalgen + '" "%1"')
+Set-RegistryDefault -Path "HKCU:\Software\Classes\PhonoScriptGUI.Editor" `
+    -Value "PhonoScript script in PhonoScript GUI"
+Set-RegistryDefault -Path "HKCU:\Software\Classes\PhonoScriptGUI.Editor\shell\open\command" `
+    -Value ('"' + $phonoscriptGui + '" "%1"')
 
 & $phonoscript --version | Out-Null
 if ($LASTEXITCODE -ne 0) {
     throw "The installed PhonoScript interpreter did not start successfully."
 }
-Write-Host "Installed ConvalGEN and PhonoScript for the current user at $InstallRoot"
+Write-Host "Installed PhonoScript GUI and PhonoScript for the current user at $InstallRoot"
 Write-Host "New terminals can invoke: phonoscript SCRIPT.phont"

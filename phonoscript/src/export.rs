@@ -108,7 +108,7 @@ fn svg_start(width: f32, height: f32, title: &str, description: &str) -> String 
         r##"<svg xmlns="http://www.w3.org/2000/svg" width="{width:.1}" height="{height:.1}" viewBox="0 0 {width:.1} {height:.1}" role="img" aria-labelledby="export-title export-description" data-crop="content" data-padding="{PADDING:.1}">
 <title id="export-title">{}</title>
 <desc id="export-description">{}</desc>
-<metadata>ConvalGEN native vector export; crop-to-content; PNG scale is declared at the write boundary.</metadata>
+<metadata>PhonoScript GUI native vector export; crop-to-content; PNG scale is declared at the write boundary.</metadata>
 <defs>
   <style><![CDATA[
     @font-face {{ font-family: 'Noto Sans'; src: url(data:font/ttf;base64,{text_font}) format('truetype'); font-style: normal; font-weight: 400; }}
@@ -2084,7 +2084,7 @@ pub fn q_calculus_svg(document: &ConvalgenDocument) -> Result<String, String> {
         62.0,
         10.5,
         400,
-        "ConvalGEN/package visual convention; this is not an ordinary winner tableau",
+        "PhonoScript GUI visual convention; this is not an ordinary winner tableau",
     );
     let mut y = 82.0;
     for (index, lines) in wrapped_steps.iter().enumerate() {
@@ -2923,7 +2923,7 @@ fn geometric_publication_tiles(
             let mut page = format!(
                 r#"<svg xmlns="http://www.w3.org/2000/svg" width="{page_width:.1}" height="{page_height:.1}" viewBox="0 0 {page_width:.1} {page_height:.1}" role="img" aria-labelledby="publication-title publication-description" data-mode="publication-tiles" data-break-policy="geometric" data-page="{page_number}" data-pages="{page_count}">
 <title id="publication-title">Publication tile {page_number} of {page_count}</title>
-<desc id="publication-description">Row {} of {rows}, column {} of {columns}; explicit paginated view of a complete ConvalGEN vector export.</desc>
+<desc id="publication-description">Row {} of {rows}, column {} of {columns}; explicit paginated view of a complete PhonoScript GUI vector export.</desc>
 <rect x="0" y="0" width="{page_width:.1}" height="{page_height:.1}" fill="{WHITE}"/>
 <svg x="{margin:.1}" y="{margin:.1}" width="{visible_width:.1}" height="{visible_height:.1}" viewBox="{source_x:.1} {source_y:.1} {visible_width:.1} {visible_height:.1}" overflow="hidden">
 "#,
@@ -3102,7 +3102,7 @@ pub fn write_with_scale(
             }));
             encoder
                 .add_text_chunk(
-                    "ConvalGEN export scale".to_owned(),
+                    "PhonoScript GUI export scale".to_owned(),
                     format!("{png_scale}x at 96 CSS pixels per inch"),
                 )
                 .map_err(|error| format!("could not describe PNG export: {error}"))?;
@@ -3305,8 +3305,8 @@ mod tests {
         let png = fs::read(&png_path).unwrap();
         assert_eq!(&png[..8], b"\x89PNG\r\n\x1a\n");
         assert!(
-            png.windows("ConvalGEN export scale".len())
-                .any(|window| window == b"ConvalGEN export scale")
+            png.windows("PhonoScript GUI export scale".len())
+                .any(|window| window == b"PhonoScript GUI export scale")
         );
         assert!(
             png.windows("2x at 96 CSS pixels per inch".len())

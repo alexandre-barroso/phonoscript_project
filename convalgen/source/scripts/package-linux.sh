@@ -24,7 +24,7 @@ case "$(uname -m)" in
     ;;
 esac
 
-package_name="ConvalGEN-linux-$architecture"
+package_name="PhonoScript-GUI-linux-$architecture"
 package_root="$platform_root/$package_name"
 archive_path="$platform_root/$package_name.tar.gz"
 target_root="${CARGO_TARGET_DIR:-$workspace_root/target}"
@@ -51,10 +51,10 @@ append_remap_flag "${CARGO_HOME:-${HOME:?HOME is required}/.cargo}" ".cargo"
 export RUSTFLAGS
 
 cd "$workspace_root"
-cargo build --release --locked -p convalgen --bin convalgen
+cargo build --release --locked -p convalgen --bin phonoscript-gui
 cargo build --release --locked -p phonoscript --bin phonoscript
 
-convalgen_binary="$target_root/release/convalgen"
+convalgen_binary="$target_root/release/phonoscript-gui"
 phonoscript_binary="$target_root/release/phonoscript"
 test -x "$convalgen_binary"
 test -x "$phonoscript_binary"
@@ -67,35 +67,35 @@ mkdir -p \
   "$package_root/share/applications" \
   "$package_root/share/icons/hicolor/scalable/apps" \
   "$package_root/share/mime/packages" \
-  "$package_root/share/doc/convalgen" \
-  "$package_root/share/convalgen/projects" \
+  "$package_root/share/doc/phonoscript-gui" \
+  "$package_root/share/phonoscript-gui/projects" \
   "$package_root/share/phonoscript/validation/analyses" \
   "$package_root/share/phonoscript/fixtures"
 
-cp "$convalgen_binary" "$package_root/bin/convalgen"
+cp "$convalgen_binary" "$package_root/bin/phonoscript-gui"
 cp "$phonoscript_binary" "$package_root/bin/phonoscript"
-cp "$source_root/linux/org.convalgen.app.desktop" \
+cp "$source_root/linux/com.alexandrebarroso.phonoscriptgui.desktop" \
   "$package_root/share/applications/"
-cp "$source_root/linux/org.convalgen.app.xml" \
+cp "$source_root/linux/com.alexandrebarroso.phonoscriptgui.xml" \
   "$package_root/share/mime/packages/"
-cp "$source_root/assets/icon/convalgen-icon.svg" \
-  "$package_root/share/icons/hicolor/scalable/apps/org.convalgen.app.svg"
+cp "$source_root/assets/icon/phonoscript-gui-icon.svg" \
+  "$package_root/share/icons/hicolor/scalable/apps/com.alexandrebarroso.phonoscriptgui.svg"
 for size in 16 32 48 64 128 256 512; do
   icon_dir="$package_root/share/icons/hicolor/${size}x${size}/apps"
   mkdir -p "$icon_dir"
-  cp "$source_root/assets/icon/png/convalgen-$size.png" \
-    "$icon_dir/org.convalgen.app.png"
+  cp "$source_root/assets/icon/png/phonoscript-gui-$size.png" \
+    "$icon_dir/com.alexandrebarroso.phonoscriptgui.png"
 done
 cp "$convalgen_root/LICENSE" \
-  "$package_root/share/doc/convalgen/CONVALGEN-LICENSE"
+  "$package_root/share/doc/phonoscript-gui/PHONOSCRIPT-GUI-LICENSE"
 cp "$phonoscript_root/LICENSE" \
-  "$package_root/share/doc/convalgen/PHONOSCRIPT-LICENSE"
-cp "$docs_root/ConvalGEN-User-Guide.pdf" \
-  "$package_root/share/doc/convalgen/ConvalGEN-User-Guide.pdf"
+  "$package_root/share/doc/phonoscript-gui/PHONOSCRIPT-LICENSE"
+cp "$docs_root/PhonoScript-GUI-User-Guide.pdf" \
+  "$package_root/share/doc/phonoscript-gui/PhonoScript-GUI-User-Guide.pdf"
 cp "$docs_root/PhonoScript-Language-Manual.pdf" \
-  "$package_root/share/doc/convalgen/PhonoScript-Language-Manual.pdf"
+  "$package_root/share/doc/phonoscript-gui/PhonoScript-Language-Manual.pdf"
 cp "$convalgen_root/projects/dissertation-complete.ottab" \
-  "$package_root/share/convalgen/projects/dissertation-complete.ottab"
+  "$package_root/share/phonoscript-gui/projects/dissertation-complete.ottab"
 cp -R "$phonoscript_root/validation/analyses/." \
   "$package_root/share/phonoscript/validation/analyses/"
 cp "$phonoscript_root/fixtures/reference/"*.ottab \
@@ -110,12 +110,12 @@ usage() {
 Usage: ./install.sh [--user | --system | --prefix PREFIX]
 
 The default is a current-user installation under $HOME/.local. Set
-CONVALGEN_PREFIX to choose another default, or pass --prefix explicitly.
+PHONOSCRIPT_GUI_PREFIX to choose another default, or pass --prefix explicitly.
 USAGE
 }
 
 package_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-install_prefix=${CONVALGEN_PREFIX:-"${HOME:?HOME is required}/.local"}
+install_prefix=${PHONOSCRIPT_GUI_PREFIX:-"${HOME:?HOME is required}/.local"}
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
@@ -152,15 +152,15 @@ install -d \
   "$install_prefix/share/applications" \
   "$install_prefix/share/icons/hicolor/scalable/apps" \
   "$install_prefix/share/mime/packages" \
-  "$install_prefix/share/doc/convalgen" \
-  "$install_prefix/share/convalgen/projects" \
+  "$install_prefix/share/doc/phonoscript-gui" \
+  "$install_prefix/share/phonoscript-gui/projects" \
   "$install_prefix/share/phonoscript/validation/analyses" \
   "$install_prefix/share/phonoscript/fixtures"
-install -m 755 "$package_dir/bin/convalgen" "$install_prefix/bin/convalgen"
+install -m 755 "$package_dir/bin/phonoscript-gui" "$install_prefix/bin/phonoscript-gui"
 install -m 755 "$package_dir/bin/phonoscript" "$install_prefix/bin/phonoscript"
 cp -R "$package_dir/share/." "$install_prefix/share/"
-find "$install_prefix/share/doc/convalgen" \
-  "$install_prefix/share/convalgen" \
+find "$install_prefix/share/doc/phonoscript-gui" \
+  "$install_prefix/share/phonoscript-gui" \
   "$install_prefix/share/phonoscript" -type f -exec chmod 644 {} +
 
 if command -v update-desktop-database >/dev/null 2>&1; then
@@ -174,28 +174,29 @@ if command -v gtk-update-icon-cache >/dev/null 2>&1; then
 fi
 
 "$install_prefix/bin/phonoscript" --version >/dev/null
-printf 'Installed ConvalGEN and PhonoScript under %s\n' "$install_prefix"
+printf 'Installed PhonoScript GUI and PhonoScript under %s\n' "$install_prefix"
 case ":${PATH:-}:" in
   *":$install_prefix/bin:"*) ;;
   *)
-    printf 'Add %s to PATH to invoke convalgen and phonoscript.\n' \
+    printf 'Add %s to PATH to invoke phonoscript-gui and phonoscript.\n' \
       "$install_prefix/bin" >&2
     ;;
 esac
 INSTALLER
 
 chmod 755 \
-  "$package_root/bin/convalgen" \
+  "$package_root/bin/phonoscript-gui" \
   "$package_root/bin/phonoscript" \
   "$package_root/install.sh"
 find "$package_root/share" -type f -exec chmod 644 {} +
 
 if command -v desktop-file-validate >/dev/null 2>&1; then
   desktop-file-validate \
-    "$package_root/share/applications/org.convalgen.app.desktop"
+    "$package_root/share/applications/com.alexandrebarroso.phonoscriptgui.desktop"
 fi
 if command -v xmllint >/dev/null 2>&1; then
-  xmllint --noout "$package_root/share/mime/packages/org.convalgen.app.xml"
+  xmllint --noout \
+    "$package_root/share/mime/packages/com.alexandrebarroso.phonoscriptgui.xml"
 fi
 
 "$package_root/bin/phonoscript" --version >/dev/null
@@ -228,8 +229,8 @@ extracted="$smoke_root/$package_name"
 sample="$(find "$extracted/share/phonoscript/validation/analyses" \
   -type f -name '*.phont' -print -quit)"
 "$extracted/bin/phonoscript" --quiet "$sample"
-test -f "$extracted/share/doc/convalgen/ConvalGEN-User-Guide.pdf"
-test -f "$extracted/share/convalgen/projects/dissertation-complete.ottab"
+test -f "$extracted/share/doc/phonoscript-gui/PhonoScript-GUI-User-Guide.pdf"
+test -f "$extracted/share/phonoscript-gui/projects/dissertation-complete.ottab"
 
 install_prefix="$smoke_root/prefix"
 "$extracted/install.sh" --prefix "$install_prefix"

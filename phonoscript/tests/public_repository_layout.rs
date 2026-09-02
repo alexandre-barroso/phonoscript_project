@@ -61,7 +61,7 @@ fn all_three_public_manuals_have_substantive_pdfs_in_docs() {
     let docs = workspace_root().join("docs");
     for stem in [
         "PhonoScript-Language-Manual",
-        "ConvalGEN-User-Guide",
+        "PhonoScript-GUI-User-Guide",
         "Q-Calculus-Manual",
     ] {
         let pdf = docs.join(format!("{stem}.pdf"));

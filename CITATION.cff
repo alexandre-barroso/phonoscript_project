@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use Project PhonoScript in research, please cite the software and the analysis source relevant to your work."
-title: "Project PhonoScript: PhonoScript and ConvalGEN"
+title: "Project PhonoScript: PhonoScript and PhonoScript GUI"
 type: software
-version: 1.1.0
-date-released: 2026-09-01
+version: 1.2.0
+date-released: 2026-09-02
 authors:
   - family-names: "Barroso"
     given-names: "Alexandre Menezes"

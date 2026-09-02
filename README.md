@@ -1,11 +1,9 @@
 <p align="center">
-  <img src="convalgen/source/assets/icon/convalgen-icon.svg" width="96" height="96" alt="ConvalGEN geometric C icon">
+  <img src="docs/assets/phonoscript-wordmark.svg" width="420" alt="phonoscript">
 </p>
 
-<h1 align="center">Project PhonoScript</h1>
-
 <p align="center">
-  <strong>A language, exact finite-analysis engine, and visual workbench for constraint-based phonology.</strong>
+  <strong>A language, finite-analysis engine, and graphical research environment for constraint-based phonology.</strong>
 </p>
 
 <p align="center">
@@ -21,31 +19,29 @@
   <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/linux.zip"><img src="https://img.shields.io/badge/Download-Linux%20x64-111827?style=for-the-badge&amp;logo=linux&amp;logoColor=white" alt="Download for Linux x64"></a>
 </p>
 
-Project PhonoScript brings two closely related tools into one repository.
-[PhonoScript](#phonoscript) is a standalone scripting language and the shared
-phonological engine. [ConvalGEN](#convalgen) is the cross-platform desktop
-application built on that engine. A project can therefore be calculated from a
-`.phont` script, edited as an `.ottab` document, inspected visually, and
-exported without changing evaluators between interfaces.
+Project PhonoScript joins a standalone language with a graphical application
+over one phonological engine. A study can be calculated from a `.phont` script,
+edited as a multi-tableau `.ottab` project, inspected visually, and exported
+without changing evaluator implementations between interfaces.
 
 <p align="center">
-  <img src="docs/assets/convalgen-project-overview.jpg" width="900" alt="ConvalGEN showing the dissertation validation project with its tableau navigator and project inspector">
+  <img src="docs/assets/phonoscript-gui-project-overview.jpg" width="460" alt="PhonoScript GUI showing the 39-tableau dissertation validation project">
 </p>
 
-<p align="center"><sub>ConvalGEN opening the 39-record dissertation validation project.</sub></p>
+<p align="center"><sub>PhonoScript GUI opening the 39-tableau dissertation validation project.</sub></p>
 
-## What the project provides
+## Two interfaces, one engine
 
 | Component | Role |
 |---|---|
 | **PhonoScript** | A standalone `.phont` language, command-line interpreter, and reusable Rust engine for declared finite phonological analyses |
-| **ConvalGEN** | A graphical project environment for editing, calculating, comparing, plotting, and exporting multi-tableau `.ottab` projects |
+| **PhonoScript GUI** | A desktop project environment for editing, calculating, comparing, plotting, and exporting multi-tableau `.ottab` projects |
 | **Shared engine** | Strict OT, Harmonic Grammar, finite MaxEnt, serial OT/HG, typed Second-Order comparison, and bounded Q-Calculus operations |
 
-The dependency is deliberately one-way: ConvalGEN uses the `phonoscript`
-crate, while PhonoScript has no dependency on the graphical application. Both
-components are currently version **1.1.0**. PhonoScript language version 3 and
-`.ottab` schema version 4 are separate compatibility contracts.
+The dependency is one-way: PhonoScript GUI consumes the `phonoscript` crate,
+while the language and engine do not depend on the graphical application. Both
+components are version **1.2.0**. PhonoScript language version 3 and `.ottab`
+schema version 4 remain separate compatibility contracts.
 
 ### Analysis principles
 
@@ -65,9 +61,8 @@ components are currently version **1.1.0**. PhonoScript language version 3 and
 
 ## Download
 
-Each release archive contains the native ConvalGEN application and a runnable
-PhonoScript interpreter, together with the public manuals and validation
-material appropriate to that platform.
+Each native archive contains PhonoScript GUI, the PhonoScript interpreter, the
+public manuals, and the platform’s validation material.
 
 | Platform | Architecture | Package |
 |---|---|---|
@@ -75,16 +70,17 @@ material appropriate to that platform.
 | Windows | x86-64 | [Download `windows.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/windows.zip) |
 | Linux | x86-64 | [Download `linux.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/linux.zip) |
 
-Release packages are native archives rather than store installers. Consult the
-[release notes](https://github.com/alexandre-barroso/phonoscript_project/releases/latest)
-for the signing and packaging status of a particular build.
+The archives are native distributions rather than app-store installers. See
+the [latest release notes](https://github.com/alexandre-barroso/phonoscript_project/releases/latest)
+for the signing and packaging status of each build.
 
-## PhonoScript
+## PhonoScript language
 
 PhonoScript is both an executable language and the API boundary shared with
-ConvalGEN. It provides source-located diagnostics, functions, control flow,
-collections, local modules, structured phonological data, project mutation,
-evaluation, assertions, Second-Order operations, and Q-Calculus commands.
+PhonoScript GUI. It provides source-located diagnostics, functions, control
+flow, collections, local modules, structured phonological data, project
+mutation, evaluation, assertions, Second-Order operations, and Q-Calculus
+commands.
 
 A complete strict-OT tableau can be declared and checked directly:
 
@@ -124,55 +120,56 @@ Install the interpreter from a source checkout with Rust 1.88 or newer:
 cargo install --locked --path phonoscript --bin phonoscript
 ```
 
-Local `.phont` modules support selective imports. Imports are canonicalized
-under an explicit module root, and imported files are declaration-only unless
-the entry script explicitly calls an exported function. There is no remote
-code loading or package registry.
+Local modules support selective imports under an explicit canonical module
+root. Imported files are declaration-only unless the entry script calls an
+exported function; there is no remote code loading or package registry.
 
 ```bash
 phonoscript --module-root analyses analyses/main.phont
 ```
 
-The full grammar, runtime model, standard library, command reference, module
-rules, and diagnostic catalogue are documented in the
+The complete grammar, runtime model, standard library, module rules, and
+diagnostic catalogue are documented in the
 [PhonoScript Language and Engine Manual](docs/PhonoScript-Language-Manual.pdf).
 
-## ConvalGEN
+## PhonoScript GUI
 
-ConvalGEN supplies direct table editing and a coordinated set of workspaces for
-large phonological projects. It supports multiple tableaux per project,
-ranking and candidate reordering, declared tie policies, unset violation
-cells, serial derivations, typed comparisons, Q-Calculus, plots, keyboard
-editing, responsive scrolling, and native publication export.
+PhonoScript GUI supplies direct tableau editing and coordinated workspaces for
+larger projects. It supports many tableaux per project, candidate and
+constraint reordering, declared tie policies, unset violation cells, serial
+derivations, typed comparisons, Q-Calculus, plots, keyboard editing, responsive
+scrolling, and native publication export.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/assets/convalgen-tableau-editor.jpg" alt="ConvalGEN tableau editor with candidate and constraint controls"></td>
-    <td width="50%"><img src="docs/assets/convalgen-second-order.jpg" alt="ConvalGEN Second-Order Tableau showing a structured discrepancy"></td>
+    <td width="50%"><img src="docs/assets/phonoscript-gui-tableau-editor.jpg" alt="PhonoScript GUI direct tableau editor"></td>
+    <td width="50%"><img src="docs/assets/phonoscript-gui-second-order.jpg" alt="PhonoScript GUI typed Second-Order discrepancy"></td>
   </tr>
   <tr>
     <td align="center"><sub>Direct tableau editing</sub></td>
-    <td align="center"><sub>Typed Second-Order discrepancy</sub></td>
+    <td align="center"><sub>Complete typed discrepancy</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/assets/phonoscript-gui-q-calculus.jpg" alt="PhonoScript GUI exact Q-Calculus representation audit"></td>
+    <td width="50%"><img src="docs/assets/phonoscript-gui-language.jpg" alt="PhonoScript GUI language workspace with syntax highlighting and diagnostics"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Exact ranking-space audit</sub></td>
+    <td align="center"><sub>Language editor and explicit boundary diagnostics</sub></td>
   </tr>
 </table>
 
-The embedded PhonoScript editor uses the same parser and runtime as the
-standalone interpreter, with token-aware highlighting and source-located
-diagnostics.
-
-<p align="center">
-  <img src="docs/assets/phonoscript-diagnostics.jpg" width="620" alt="ConvalGEN PhonoScript editor showing syntax highlighting and source-located diagnostics">
-</p>
-
-<p align="center"><sub>PhonoScript diagnostics inside ConvalGEN.</sub></p>
+The embedded editor uses the same parser and runtime as the standalone
+interpreter. Token-aware highlighting, source locations, and transactional
+execution therefore have the same semantics in both interfaces.
 
 ### Publication output
 
-ConvalGEN exports cropped SVG, PDF, and PNG from one native vector scene. SVG
-remains editable, PDF retains vector text and embedded fonts, and PNG uses an
-explicit canvas and declared scale. The renderer implements the material
-visual grammar of the bundled `secondordertableau.sty` package without
-emitting `.tex` files.
+PhonoScript GUI exports cropped SVG, PDF, and PNG from one native vector scene.
+SVG remains editable, PDF retains vector text and embedded fonts, and PNG uses
+an explicit canvas and declared scale. The renderer implements the material
+visual grammar of the bundled `secondordertableau.sty` package without emitting
+`.tex` files.
 
 <table>
   <tr>
@@ -187,20 +184,20 @@ emitting `.tex` files.
   </tr>
 </table>
 
-Build and open ConvalGEN from source:
+Build and open the graphical application from source:
 
 ```bash
-cargo run --release -p convalgen
+cargo run --release -p convalgen --bin phonoscript-gui
 ```
 
-See the [ConvalGEN User Guide](docs/ConvalGEN-User-Guide.pdf) for installation,
-project editing, shortcuts, calculation, scripting, and export workflows.
+See the [PhonoScript GUI User Guide](docs/PhonoScript-GUI-User-Guide.pdf) for
+installation, project editing, shortcuts, calculation, scripting, and export.
 
 ## Typed comparison and Q-Calculus
 
-Second-Order comparison calculates the source and target responses
-independently and only then applies the declared transport. The current direct
-query interface covers five response families:
+Second-Order comparison calculates source and target responses independently
+and only then applies the declared transport. The current direct query
+interface covers five response families:
 
 1. winner set;
 2. surface winner set;
@@ -209,7 +206,7 @@ query interface covers five response families:
 5. candidate support.
 
 These may be evaluated over terminal results or complete serial trajectories,
-subject to each query's formation and admission requirements. A completed
+subject to each query’s formation and admission requirements. A completed
 comparison returns `PRESERVED` with a certificate, `DISCREPANCY` with all
 differing response coordinates, or `NOT EVALUATED` with indexed missing
 dependencies. This is an implemented finite interface, not a claim that every
@@ -240,13 +237,13 @@ cargo test --workspace --locked --all-targets
 cargo run --release -p phonoscript --bin qcalc-bench
 ```
 
-The current suite contains **247 tests**, executes **24 public `.phont`
-analyses**, validates **9 `.ottab` fixtures**, and checks **39 bounded
-dissertation records**. Discovery-based harnesses decode every checked-in
-project, execute every authored validation script transactionally, and compare
-independent native, scripted, and document transcriptions where all three
-exist. The performance gate separately exercises exact ranking-space counting,
-50,000 finite-MaxEnt evaluations, and 20,000 complete typed comparisons.
+The suite contains **247 tests**, executes **24 public `.phont` analyses**,
+validates **9 `.ottab` fixtures**, and checks **39 bounded dissertation
+records**. Discovery-based harnesses decode every checked-in project, execute
+every validation script transactionally, and compare independent native,
+scripted, and document transcriptions where all three exist. The performance
+gate separately exercises exact ranking-space counting, 50,000 finite-MaxEnt
+evaluations, and 20,000 complete typed comparisons.
 
 Passing these tests establishes the tagged finite records and software
 properties. It does not establish exhaustive coverage of the literature,
@@ -260,7 +257,7 @@ contact/inversion solver.
 ```text
 project_phonoscript/
 ├── phonoscript/     language, interpreter, engine, fixtures, and tests
-├── convalgen/       desktop application, packaging, and validation project
+├── convalgen/       graphical application source and native packaging
 ├── docs/            public manuals and README media
 ├── .github/         cross-platform release workflow
 └── Cargo.toml       shared Rust workspace

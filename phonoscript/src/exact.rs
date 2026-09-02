@@ -400,7 +400,7 @@ impl NumericScalar {
     /// control. This never reclassifies the edited `f64` as an exact decimal.
     pub fn gui_approximate(value: f64) -> Result<Self, ScalarError> {
         let boundary = ApproximationBoundary::binary_f64()
-            .with_source("ConvalGEN GUI numeric control")?
+            .with_source("PhonoScript GUI numeric control")?
             .with_note("value edited through a binary floating-point control")?;
         Self::approximate(value, boundary)
     }
@@ -410,7 +410,7 @@ impl NumericScalar {
     pub fn parse_editor(text: &str) -> Result<Self, ScalarError> {
         if let Some(approximate) = text.strip_prefix('~') {
             let boundary = ApproximationBoundary::binary_f64()
-                .with_source("ConvalGEN scalar text editor")?
+                .with_source("PhonoScript GUI scalar text editor")?
                 .with_note("user explicitly entered an approximate scalar")?;
             Self::parse_approximate(approximate, boundary)
         } else {

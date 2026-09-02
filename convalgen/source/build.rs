@@ -4,7 +4,7 @@ use std::process::Command;
 
 fn main() {
     println!("cargo:rerun-if-changed=windows/convalgen.rc");
-    println!("cargo:rerun-if-changed=assets/icon/windows/ConvalGEN.ico");
+    println!("cargo:rerun-if-changed=assets/icon/windows/PhonoScript-GUI.ico");
 
     if env::var("CARGO_CFG_TARGET_OS").as_deref() != Ok("windows") {
         return;
@@ -27,7 +27,7 @@ fn main() {
             .expect("failed to launch the Windows resource compiler (rc.exe)");
         assert!(
             status.success(),
-            "rc.exe failed to compile the ConvalGEN icon"
+            "rc.exe failed to compile the PhonoScript GUI icon"
         );
         output
     } else {
@@ -43,10 +43,13 @@ fn main() {
             .expect("failed to launch the Windows GNU resource compiler (windres)");
         assert!(
             status.success(),
-            "windres failed to compile the ConvalGEN icon"
+            "windres failed to compile the PhonoScript GUI icon"
         );
         output
     };
 
-    println!("cargo:rustc-link-arg-bin=convalgen={}", resource.display());
+    println!(
+        "cargo:rustc-link-arg-bin=phonoscript-gui={}",
+        resource.display()
+    );
 }

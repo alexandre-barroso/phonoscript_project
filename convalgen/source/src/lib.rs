@@ -1,4 +1,4 @@
-//! ConvalGEN: native desktop analysis built on the independent PhonoScript engine.
+//! PhonoScript GUI: native desktop analysis built on the independent PhonoScript engine.
 
 pub mod app;
 #[cfg(target_os = "macos")]

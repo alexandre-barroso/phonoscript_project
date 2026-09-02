@@ -131,7 +131,7 @@ pub fn finite_maxent_smoke() -> ConvalgenDocument {
 pub fn tessier_hg_maxent() -> ConvalgenDocument {
     let mut document = ConvalgenDocument::blank();
     document.title = "Tessier /skul/ HG-MaxEnt comparison".to_owned();
-    document.description = "Independent transcription of Tessier (2017), physical PDF page 16, Tableaux (14)-(15). The source's exp(-11) decimal is incorrect and its MaxEnt values are unnormalized; ConvalGEN calculates the corrected finite conditional law from the printed ledger.".to_owned();
+    document.description = "Independent transcription of Tessier (2017), physical PDF page 16, Tableaux (14)-(15). The source's exp(-11) decimal is incorrect and its MaxEnt values are unnormalized; PhonoScript GUI calculates the corrected finite conditional law from the printed ledger.".to_owned();
     document.evaluator = EvaluatorKind::HarmonicGrammar;
     document.temperature = NumericScalar::integer(1);
     let locator = "Tessier 2017, physical PDF p. 16, Tableaux (14)-(15), /skul/ panels";
@@ -406,7 +406,7 @@ fn dissertation_tableau(
     result.evaluator = Some(evaluator);
     result.expected_winners = expected.iter().map(|name| (*name).to_owned()).collect();
     result.source_locator = locator.to_owned();
-    result.notes = "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.".to_owned();
+    result.notes = "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.".to_owned();
     result
 }
 

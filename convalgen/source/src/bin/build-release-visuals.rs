@@ -417,7 +417,7 @@ fn main() {
         .unwrap_or_else(|| {
             PathBuf::from(env!("CARGO_MANIFEST_DIR"))
                 .parent()
-                .expect("ConvalGEN source crate is nested under the component root")
+                .expect("PhonoScript GUI source crate is nested under the component root")
                 .join("validation/exports")
         });
     fs::create_dir_all(&destination)

@@ -24,10 +24,10 @@ case "$(uname -m)" in
     ;;
 esac
 
-app_bundle="$platform_root/ConvalGEN.app"
+app_bundle="$platform_root/PhonoScript GUI.app"
 app_macos="$app_bundle/Contents/MacOS"
 app_resources="$app_bundle/Contents/Resources"
-archive_path="$platform_root/ConvalGEN-macos-$architecture.zip"
+archive_path="$platform_root/PhonoScript-GUI-macos-$architecture.zip"
 target_root="${CARGO_TARGET_DIR:-$workspace_root/target}"
 if [[ "$target_root" != /* ]]; then
   target_root="$workspace_root/$target_root"
@@ -52,10 +52,10 @@ append_remap_flag "${CARGO_HOME:-${HOME:?HOME is required}/.cargo}" ".cargo"
 export RUSTFLAGS
 
 cd "$workspace_root"
-cargo build --release --locked -p convalgen --bin convalgen
+cargo build --release --locked -p convalgen --bin phonoscript-gui
 cargo build --release --locked -p phonoscript --bin phonoscript
 
-convalgen_binary="$target_root/release/convalgen"
+convalgen_binary="$target_root/release/phonoscript-gui"
 phonoscript_binary="$target_root/release/phonoscript"
 test -x "$convalgen_binary"
 test -x "$phonoscript_binary"
@@ -71,14 +71,15 @@ mkdir -p \
   "$app_resources/Validation/analyses" \
   "$app_resources/Validation/fixtures"
 
-cp "$convalgen_binary" "$app_macos/convalgen"
+cp "$convalgen_binary" "$app_macos/phonoscript-gui"
 cp "$phonoscript_binary" "$app_resources/bin/phonoscript"
 cp "$source_root/macos/Info.plist" "$app_bundle/Contents/Info.plist"
-cp "$source_root/assets/icon/macos/ConvalGEN.icns" "$app_resources/ConvalGEN.icns"
-cp "$convalgen_root/LICENSE" "$app_resources/CONVALGEN-LICENSE"
+cp "$source_root/assets/icon/macos/PhonoScript-GUI.icns" \
+  "$app_resources/PhonoScript-GUI.icns"
+cp "$convalgen_root/LICENSE" "$app_resources/PHONOSCRIPT-GUI-LICENSE"
 cp "$phonoscript_root/LICENSE" "$app_resources/PHONOSCRIPT-LICENSE"
-cp "$docs_root/ConvalGEN-User-Guide.pdf" \
-  "$app_resources/Documentation/ConvalGEN-User-Guide.pdf"
+cp "$docs_root/PhonoScript-GUI-User-Guide.pdf" \
+  "$app_resources/Documentation/PhonoScript-GUI-User-Guide.pdf"
 cp "$docs_root/PhonoScript-Language-Manual.pdf" \
   "$app_resources/Documentation/PhonoScript-Language-Manual.pdf"
 cp "$convalgen_root/projects/dissertation-complete.ottab" \
@@ -88,7 +89,7 @@ cp -R "$phonoscript_root/validation/analyses/." \
 cp "$phonoscript_root/fixtures/reference/"*.ottab \
   "$app_resources/Validation/fixtures/"
 
-chmod 755 "$app_macos/convalgen" "$app_resources/bin/phonoscript"
+chmod 755 "$app_macos/phonoscript-gui" "$app_resources/bin/phonoscript"
 find "$app_resources/Documentation" "$app_resources/Projects" \
   "$app_resources/Validation" -type f -exec chmod 644 {} +
 
@@ -110,7 +111,7 @@ done < <(find "$app_resources/Validation/fixtures" \
 
 # These are local ad-hoc signatures. A public macOS release still requires a
 # Developer ID signature and Apple notarization by the release owner.
-codesign --force --sign - "$app_macos/convalgen"
+codesign --force --sign - "$app_macos/phonoscript-gui"
 codesign --force --sign - "$app_resources/bin/phonoscript"
 codesign --force --sign - "$app_bundle"
 codesign --verify --deep --strict --verbose=2 "$app_bundle"
@@ -120,13 +121,13 @@ xattr -cr "$app_bundle"
   "$app_bundle" "$archive_path"
 
 /usr/bin/ditto -x -k "$archive_path" "$smoke_root/archive"
-extracted_app="$smoke_root/archive/ConvalGEN.app"
+extracted_app="$smoke_root/archive/PhonoScript GUI.app"
 codesign --verify --deep --strict --verbose=2 "$extracted_app"
 extracted_interpreter="$extracted_app/Contents/Resources/bin/phonoscript"
 sample="$(find "$extracted_app/Contents/Resources/Validation/analyses" \
   -type f -name '*.phont' -print -quit)"
 "$extracted_interpreter" --quiet "$sample"
-test -f "$extracted_app/Contents/Resources/Documentation/ConvalGEN-User-Guide.pdf"
+test -f "$extracted_app/Contents/Resources/Documentation/PhonoScript-GUI-User-Guide.pdf"
 test -f "$extracted_app/Contents/Resources/Documentation/PhonoScript-Language-Manual.pdf"
 test -f "$extracted_app/Contents/Resources/Projects/dissertation-complete.ottab"
 

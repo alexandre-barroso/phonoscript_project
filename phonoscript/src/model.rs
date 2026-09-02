@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::exact::NumericScalar;
 use crate::phonology::StructuredCandidate;
 
-pub const DOCUMENT_FORMAT: &str = "convalgen-analysis";
+pub const DOCUMENT_FORMAT: &str = "phonoscript-analysis";
 pub const DOCUMENT_VERSION: u32 = 4;
 /// Reserved in-memory/storage marker for a violation cell the phonologist has
 /// not yet supplied. It is never a mathematical violation count.
@@ -424,7 +424,7 @@ pub struct Tableau {
     #[serde(default)]
     pub missing_dependencies: Vec<MissingDependency>,
     /// Regression expectations are human-readable project evidence, not an
-    /// alternative evaluator. ConvalGEN always calculates the answer first.
+    /// alternative evaluator. PhonoScript GUI always calculates the answer first.
     #[serde(default)]
     pub expected_winners: Vec<String>,
     #[serde(default)]
@@ -658,7 +658,7 @@ impl ConvalgenDocument {
             id: "project-1".to_owned(),
             format: DOCUMENT_FORMAT.to_owned(),
             format_version: DOCUMENT_VERSION,
-            application: "ConvalGEN".to_owned(),
+            application: "PhonoScript GUI".to_owned(),
             title: "Untitled Analysis".to_owned(),
             author: String::new(),
             description: String::new(),
@@ -681,7 +681,7 @@ impl ConvalgenDocument {
     pub fn normalize(&mut self) {
         self.format = DOCUMENT_FORMAT.to_owned();
         self.format_version = DOCUMENT_VERSION;
-        self.application = "ConvalGEN".to_owned();
+        self.application = "PhonoScript GUI".to_owned();
         self.source.normalize();
         self.target.normalize();
         for tableau in &mut self.dataset {
@@ -696,7 +696,7 @@ impl ConvalgenDocument {
 
     pub fn validate(&self) -> Result<(), String> {
         if self.format != DOCUMENT_FORMAT {
-            return Err("not a ConvalGEN analysis document".to_owned());
+            return Err("not a PhonoScript GUI analysis document".to_owned());
         }
         if self.format_version != DOCUMENT_VERSION {
             return Err(format!(

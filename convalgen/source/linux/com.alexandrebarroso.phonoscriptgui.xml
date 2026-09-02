@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/vnd.phonoscript.gui.analysis+json">
+    <comment>PhonoScript GUI analysis</comment>
+    <glob pattern="*.ottab"/>
+  </mime-type>
+  <mime-type type="text/x-phont">
+    <comment>PhonoScript script</comment>
+    <glob pattern="*.phont"/>
+  </mime-type>
+</mime-info>

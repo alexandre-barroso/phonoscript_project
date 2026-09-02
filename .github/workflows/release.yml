@@ -73,7 +73,7 @@ jobs:
         run: cargo run --release --locked -p phonoscript --bin qcalc-bench
       - name: Package independent PhonoScript interpreter
         run: ./phonoscript/scripts/package-macos.sh
-      - name: Package ConvalGEN application
+      - name: Package PhonoScript GUI application
         run: ./convalgen/source/scripts/package-macos.sh
       - name: Upload macOS packages
         uses: actions/upload-artifact@v7
@@ -141,7 +141,7 @@ jobs:
         run: cargo run --release --locked -p phonoscript --bin qcalc-bench
       - name: Package independent PhonoScript interpreter
         run: ./phonoscript/scripts/package-linux.sh
-      - name: Package ConvalGEN application
+      - name: Package PhonoScript GUI application
         run: ./convalgen/source/scripts/package-linux.sh
       - name: Upload Linux packages
         uses: actions/upload-artifact@v7
@@ -221,7 +221,7 @@ jobs:
       - name: Package independent PhonoScript interpreter
         shell: pwsh
         run: .\phonoscript\scripts\package-windows.ps1
-      - name: Package ConvalGEN application
+      - name: Package PhonoScript GUI application
         shell: pwsh
         run: .\convalgen\source\scripts\package-windows.ps1
       - name: Upload Windows packages

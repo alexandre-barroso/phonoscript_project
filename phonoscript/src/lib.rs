@@ -1,6 +1,6 @@
 //! PhonoScript language and the shared phonological analysis engine.
 //!
-//! This crate is independent of ConvalGEN. The desktop application consumes
+//! This crate is independent of PhonoScript GUI. The desktop application consumes
 //! this public API; the language and engine never depend on the GUI.
 
 pub mod document;

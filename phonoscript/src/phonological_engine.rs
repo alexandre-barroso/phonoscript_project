@@ -1,4 +1,4 @@
-//! One checked entry point for every analytical operation used by ConvalGEN
+//! One checked entry point for every analytical operation used by PhonoScript GUI
 //! and PhonoScript.
 //!
 //! The lower-level modules remain deliberately small and fast. This facade is

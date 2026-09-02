@@ -2,14 +2,14 @@
 set -euo pipefail
 
 mode="${1:-run}"
-app_name="ConvalGEN"
-bundle_id="org.convalgen.app"
+app_name="PhonoScript GUI"
+bundle_id="com.alexandrebarroso.phonoscriptgui"
 studio_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 project_root="$(cd "$studio_root/.." && pwd)"
 app_bundle="$project_root/compiled/macos/$app_name.app"
-app_binary="$app_bundle/Contents/MacOS/convalgen"
+app_binary="$app_bundle/Contents/MacOS/phonoscript-gui"
 
-pkill -x convalgen >/dev/null 2>&1 || true
+pkill -x phonoscript-gui >/dev/null 2>&1 || true
 "$studio_root/scripts/package-macos.sh" >/dev/null
 
 open_app() {
@@ -25,7 +25,7 @@ case "$mode" in
     ;;
   --logs|logs)
     open_app
-    /usr/bin/log stream --info --style compact --predicate "process == \"convalgen\""
+    /usr/bin/log stream --info --style compact --predicate "process == \"phonoscript-gui\""
     ;;
   --telemetry|telemetry)
     open_app
@@ -34,7 +34,7 @@ case "$mode" in
   --verify|verify)
     open_app
     sleep 1
-    pgrep -x convalgen >/dev/null
+    pgrep -x phonoscript-gui >/dev/null
     ;;
   *)
     echo "usage: $0 [run|--debug|--logs|--telemetry|--verify]" >&2
