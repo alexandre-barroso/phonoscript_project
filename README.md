@@ -1,170 +1,237 @@
-# Project PhonoScript
+<p align="center">
+  <img src="convalgen/source/assets/icon/convalgen-icon.svg" width="96" height="96" alt="ConvalGEN geometric C icon">
+</p>
 
-Project PhonoScript is the single repository for PhonoScript and ConvalGEN.
+<h1 align="center">Project PhonoScript</h1>
 
-- **PhonoScript** is the standalone scripting language and shared engine for
-  finite constraint-based phonological analysis.
-- **ConvalGEN** is the desktop application built on that engine. It provides
-  visual project editing, tableaux, diagnostics, plots, and publication
-  export.
+<p align="center">
+  <strong>A language, exact finite-analysis engine, and visual workbench for constraint-based phonology.</strong>
+</p>
 
-The dependency is one-way: ConvalGEN uses the `phonoscript` crate;
-PhonoScript has no dependency on the graphical application. Both components
-are version 1.1.0. PhonoScript language version 3 and `.ottab` schema version 4
-are separate compatibility contracts.
+<p align="center">
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/alexandre-barroso/phonoscript_project/release.yml?branch=main&amp;style=flat-square&amp;label=build" alt="Build status"></a>
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest"><img src="https://img.shields.io/github/v/release/alexandre-barroso/phonoscript_project?style=flat-square&amp;color=111827" alt="Latest release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/alexandre-barroso/phonoscript_project?style=flat-square&amp;color=111827" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/Rust-1.88%2B-111827?style=flat-square&amp;logo=rust&amp;logoColor=white" alt="Rust 1.88 or newer">
+</p>
 
-## Manuals
+<p align="center">
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/macos.zip"><img src="https://img.shields.io/badge/Download-macOS%20Apple%20silicon-111827?style=for-the-badge&amp;logo=apple&amp;logoColor=white" alt="Download for macOS Apple silicon"></a>
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/windows.zip"><img src="https://img.shields.io/badge/Download-Windows%20x64-111827?style=for-the-badge&amp;logo=windows11&amp;logoColor=white" alt="Download for Windows x64"></a>
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/linux.zip"><img src="https://img.shields.io/badge/Download-Linux%20x64-111827?style=for-the-badge&amp;logo=linux&amp;logoColor=white" alt="Download for Linux x64"></a>
+</p>
 
-- [PhonoScript Language and Engine Manual](docs/PhonoScript-Language-Manual.pdf)
-- [ConvalGEN User Guide](docs/ConvalGEN-User-Guide.pdf)
-- [Q-Calculus Mathematical and Analyst Manual](docs/Q-Calculus-Manual.pdf)
+Project PhonoScript brings two closely related tools into one repository.
+[PhonoScript](#phonoscript) is a standalone scripting language and the shared
+phonological engine. [ConvalGEN](#convalgen) is the cross-platform desktop
+application built on that engine. A project can therefore be calculated from a
+`.phont` script, edited as an `.ottab` document, inspected visually, and
+exported without changing evaluators between interfaces.
 
-## Repository layout
+<p align="center">
+  <img src="docs/assets/convalgen-project-overview.jpg" width="900" alt="ConvalGEN showing the dissertation validation project with its tableau navigator and project inspector">
+</p>
 
-| Path | Contents |
+<p align="center"><sub>ConvalGEN opening the 39-record dissertation validation project.</sub></p>
+
+## What the project provides
+
+| Component | Role |
 |---|---|
-| `phonoscript/` | Language frontend, interpreter, engine, fixtures, tests, standalone packaging, and the reference-bounded analysis corpus |
-| `convalgen/` | Desktop interface, native packaging, dissertation project, bundled tableau style, and unpacked native distributions |
-| `docs/` | The three compiled public manuals |
-| `.github/workflows/release.yml` | Formatting, linting, test, packaging, and artifact workflow |
-| `Cargo.toml` | Shared Rust workspace definition |
+| **PhonoScript** | A standalone `.phont` language, command-line interpreter, and reusable Rust engine for declared finite phonological analyses |
+| **ConvalGEN** | A graphical project environment for editing, calculating, comparing, plotting, and exporting multi-tableau `.ottab` projects |
+| **Shared engine** | Strict OT, Harmonic Grammar, finite MaxEnt, serial OT/HG, typed Second-Order comparison, and bounded Q-Calculus operations |
 
-## Analysis contract
+The dependency is deliberately one-way: ConvalGEN uses the `phonoscript`
+crate, while PhonoScript has no dependency on the graphical application. Both
+components are currently version **1.1.0**. PhonoScript language version 3 and
+`.ottab` schema version 4 are separate compatibility contracts.
 
-The shared engine evaluates declared finite analyses in strict Optimality
-Theory, Harmonic Grammar, finite Maximum Entropy grammar, and serial OT/HG. It
-also implements typed Second-Order comparisons and Q-Calculus operations.
+### Analysis principles
 
-Every violation count is supplied by the phonologist. Candidate forms,
-structured representations, constraint names, and descriptive definitions do
-not generate or replace marks. A new GUI cell is unset (`—`), not zero, and
-evaluation, learning, comparison, and export are refused until the phonologist
-completes the ledger. PhonoScript candidate imports likewise require explicit
-violation vectors.
+- **The phonologist controls the ledger.** Every violation count is entered
+  explicitly; candidate forms and constraint descriptions never manufacture
+  marks.
+- **Candidates are not outputs.** Every tableau row is a candidate. “Output”
+  refers only to a candidate selected by the evaluator or to a declared serial
+  terminal result.
+- **Exactness boundaries are visible.** Integers, rationals, weighted costs,
+  and exact finite-law operations remain exact where their inputs permit it.
+  Approximate and grid-based judgments are separate declared modes.
+- **Incomplete comparisons remain incomplete.** Missing support, transport,
+  normalizer policy, scientific-layer bridge, serial ledger, or violation
+  count produces a structured `NOT EVALUATED` result—not `false`, zero, `NaN`,
+  or an empty response.
 
-Candidate and output are not synonyms. Every tableau row is a candidate; the
-term **output** applies only to a candidate selected by an evaluator or to a
-declared serial terminal result.
+## Download
 
-Second-Order comparison calculates source and target responses independently
-before applying a declared transport. Each side uses its tableau-level
-evaluator and temperature when present, otherwise the project defaults; these
-overrides therefore affect the calculated responses rather than only their
-display. Its result is one of:
+Each release archive contains the native ConvalGEN application and a runnable
+PhonoScript interpreter, together with the public manuals and validation
+material appropriate to that platform.
 
-- `PRESERVED`, with a certificate;
-- `DISCREPANCY`, with every differing response coordinate; or
-- `NOT EVALUATED`, with the missing formation or admission dependency.
+| Platform | Architecture | Package |
+|---|---|---|
+| macOS | Apple silicon (`arm64`) | [Download `macos.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/macos.zip) |
+| Windows | x86-64 | [Download `windows.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/windows.zip) |
+| Linux | x86-64 | [Download `linux.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/linux.zip) |
 
-A missing support, transport, normalizer policy, scientific-layer bridge,
-serial ledger, or violation count is never converted into `false`, zero,
-`NaN`, or an empty result.
+Release packages are native archives rather than store installers. Consult the
+[release notes](https://github.com/alexandre-barroso/phonoscript_project/releases/latest)
+for the signing and packaging status of a particular build.
 
-Exact rational source values remain exact in PhonoScript and `.ottab`.
-Weighted HG and MaxEnt candidate costs remain exact when every enabled weight
-is exact. Strict OT has no scalar Harmony: `evaluate()` reports `null` for that
-row coordinate, and `harmony(candidate)` returns a structured formation fault.
-MaxEnt exponentials and probabilities, numerical learning, and weighted costs
-that contain an explicitly approximate weight cross a declared approximate
-boundary. Exact finite MaxEnt-law comparison is a separate symbolic operation;
-tolerance and finite-grid judgments are separate modes selected by the analyst.
+## PhonoScript
 
-Q-Calculus has registered semantics for strict OT with retained
-co-winner sets, no project-level a-priori ranking relations, exactly aligned
-finite constraint registers, 1--60 enabled constraints, and at most 63
-candidates per tableau. Counts and reduced ranking shares are exact
-arbitrary-precision integers and rationals. The default dynamic-program budget
-is 2,000,000 charged states; reaching it is a structured refusal, not an
-approximate count. A ranking share is not a token probability unless an
-additional measure and response law are declared.
+PhonoScript is both an executable language and the API boundary shared with
+ConvalGEN. It provides source-located diagnostics, functions, control flow,
+collections, local modules, structured phonological data, project mutation,
+evaluation, assertions, Second-Order operations, and Q-Calculus commands.
 
-## Build and run
+A complete strict-OT tableau can be declared and checked directly:
 
-Rust 1.88 or newer is required for source builds. From the repository root:
+```phont
+#!/usr/bin/env phonoscript
 
-```bash
-cargo run --release -p convalgen
+project_title("Final voicing")
+project_evaluator("OT")
+dataset_clear()
 
-cargo run --release -p phonoscript -- \
-  phonoscript/validation/analyses/published/kager-coda-voicing.phont
+tableau_select("source")
+tableau_name("Final voicing")
+tableau_input("/bɛd/")
+constraints_clear()
+candidates_clear()
+
+constraint_add("*VOICED-CODA", 1, "", 0)
+constraint_add("IDENT-IO(voice)", 1, "", 1)
+
+candidate_add("faithful", "[bɛd]", [1, 0])
+candidate_add("devoiced", "[bɛt]", [0, 1])
+
+assert_winners(["devoiced"])
 ```
 
-Install the language interpreter from source:
+Run it like any other script:
+
+```bash
+phonoscript analysis.phont
+phonoscript --check analysis.phont
+phonoscript analysis.phont --base project.ottab --write result.ottab
+```
+
+Install the interpreter from a source checkout with Rust 1.88 or newer:
 
 ```bash
 cargo install --locked --path phonoscript --bin phonoscript
-phonoscript analysis.phont
-phonoscript --check analysis.phont
 ```
 
-PhonoScript 3 supports selective imports from local `.phont` modules:
-
-```phont
-import { build_analysis, title as analysis_title } from "./analysis.phont"
-
-print(analysis_title)
-build_analysis()
-evaluate()
-```
-
-Imported names are immutable and only explicitly exported bindings are
-visible. Imported files are declaration-only: they may contain imports,
-functions, and immutable side-effect-free declarations, while project
-mutation, output, and file effects must occur inside an exported function
-called explicitly by the entry script. Relative imports are canonicalized and
-confined beneath an explicit module root; symlink escapes, cycles, excessive
-depth, excessive source volume, and missing exports produce source-located
-diagnostics. There is no remote loading or package registry. The `--base`
-option supplies project data, not executable declarations.
-
-Run a module entry with an explicit root:
+Local `.phont` modules support selective imports. Imports are canonicalized
+under an explicit module root, and imported files are declaration-only unless
+the entry script explicitly calls an exported function. There is no remote
+code loading or package registry.
 
 ```bash
 phonoscript --module-root analyses analyses/main.phont
-phonoscript --check --module-root analyses analyses/main.phont
 ```
 
-Run a script against an existing project and save the validated result:
+The full grammar, runtime model, standard library, command reference, module
+rules, and diagnostic catalogue are documented in the
+[PhonoScript Language and Engine Manual](docs/PhonoScript-Language-Manual.pdf).
+
+## ConvalGEN
+
+ConvalGEN supplies direct table editing and a coordinated set of workspaces for
+large phonological projects. It supports multiple tableaux per project,
+ranking and candidate reordering, declared tie policies, unset violation
+cells, serial derivations, typed comparisons, Q-Calculus, plots, keyboard
+editing, responsive scrolling, and native publication export.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/assets/convalgen-tableau-editor.jpg" alt="ConvalGEN tableau editor with candidate and constraint controls"></td>
+    <td width="50%"><img src="docs/assets/convalgen-second-order.jpg" alt="ConvalGEN Second-Order Tableau showing a structured discrepancy"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Direct tableau editing</sub></td>
+    <td align="center"><sub>Typed Second-Order discrepancy</sub></td>
+  </tr>
+</table>
+
+The embedded PhonoScript editor uses the same parser and runtime as the
+standalone interpreter, with token-aware highlighting and source-located
+diagnostics.
+
+<p align="center">
+  <img src="docs/assets/phonoscript-diagnostics.jpg" width="620" alt="ConvalGEN PhonoScript editor showing syntax highlighting and source-located diagnostics">
+</p>
+
+<p align="center"><sub>PhonoScript diagnostics inside ConvalGEN.</sub></p>
+
+### Publication output
+
+ConvalGEN exports cropped SVG, PDF, and PNG from one native vector scene. SVG
+remains editable, PDF retains vector text and embedded fonts, and PNG uses an
+explicit canvas and declared scale. The renderer implements the material
+visual grammar of the bundled `secondordertableau.sty` package without
+emitting `.tex` files.
+
+<table>
+  <tr>
+    <td width="33%"><img src="docs/assets/strict-ot-tableau.png" alt="Exported strict Optimality Theory tableau"></td>
+    <td width="33%"><img src="docs/assets/second-order-comparison.png" alt="Exported Second-Order preservation tableau"></td>
+    <td width="33%"><img src="docs/assets/q-calculus-derivation.png" alt="Exported Q-Calculus derivation"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Strict OT</sub></td>
+    <td align="center"><sub>Second-Order comparison</sub></td>
+    <td align="center"><sub>Q-Calculus</sub></td>
+  </tr>
+</table>
+
+Build and open ConvalGEN from source:
 
 ```bash
-phonoscript analysis.phont --base base.ottab --write result.ottab
+cargo run --release -p convalgen
 ```
 
-The ConvalGEN editor opens and saves `.ottab` projects and runs `.phont`
-scripts through the same parser, runtime, and engine as the command-line
-interpreter.
+See the [ConvalGEN User Guide](docs/ConvalGEN-User-Guide.pdf) for installation,
+project editing, shortcuts, calculation, scripting, and export workflows.
 
-## Native packages
+## Typed comparison and Q-Calculus
 
-Unpacked runnable PhonoScript distributions are checked in by platform under
-`phonoscript/compiled/`. The corresponding ConvalGEN distributions are under
-`convalgen/compiled/` and include the PhonoScript interpreter. Required runtime
-resources, installers, licenses, validation programs, and project fixtures are
-kept with those distributions.
+Second-Order comparison calculates the source and target responses
+independently and only then applies the declared transport. The current direct
+query interface covers five response families:
 
-Build on the matching operating system:
+1. winner set;
+2. surface winner set;
+3. complete order;
+4. probability law; and
+5. candidate support.
 
-```bash
-./phonoscript/scripts/package-macos.sh
-./phonoscript/scripts/package-linux.sh
+These may be evaluated over terminal results or complete serial trajectories,
+subject to each query's formation and admission requirements. A completed
+comparison returns `PRESERVED` with a certificate, `DISCREPANCY` with all
+differing response coordinates, or `NOT EVALUATED` with indexed missing
+dependencies. This is an implemented finite interface, not a claim that every
+Second-Order theorem in the dissertation has been mechanized.
 
-./convalgen/source/scripts/package-macos.sh
-./convalgen/source/scripts/package-linux.sh
-```
+Q-Calculus currently has registered executable semantics for strict OT with
+retained co-winner sets, no project-level a-priori ranking relations, aligned
+finite constraint registers, 1–60 enabled constraints, and at most 63
+candidates per tableau. Counts and reduced ranking shares use exact
+arbitrary-precision integers and rationals. The default dynamic-program budget
+is 2,000,000 charged states; exhaustion is a structured refusal rather than an
+approximate count. A ranking share is not a token probability unless a further
+measure and response law are declared.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\phonoscript\scripts\package-windows.ps1
-powershell -ExecutionPolicy Bypass -File .\convalgen\source\scripts\package-windows.ps1
-```
-
-A package name records its operating system and architecture. Compressed
-archives are generated by the packaging scripts and CI when needed, but are
-excluded from Git; a clone exposes the unpacked distributions directly.
-Platform-native CI remains the runtime and packaging gate. Public macOS
-distribution also requires the release owner's Developer ID signature and
-notarization; local packages are ad-hoc signed.
+The mathematical contract, proofs, algorithms, admissibility rules, and worked
+use are collected in the
+[Q-Calculus Mathematical and Analyst Manual](docs/Q-Calculus-Manual.pdf).
 
 ## Verification
+
+The release gate runs formatting, linting, the complete workspace test suite,
+performance checks, and native packaging on macOS, Windows, and Linux.
 
 ```bash
 cargo fmt --all -- --check
@@ -173,122 +240,46 @@ cargo test --workspace --locked --all-targets
 cargo run --release -p phonoscript --bin qcalc-bench
 ```
 
-The corpus harness discovers and executes every checked-in authored `.phont`
-program transactionally. The reference-project harness enumerates every
-checked-in `.ottab` fixture, decodes and validates it, and evaluates its
-declared oracle boundary. Cross-interface tests compare independent native
-transcriptions, PhonoScript programs, and `.ottab` documents where all three
-exist. The dissertation fixture is also checked against the copy distributed
-with ConvalGEN. Discovery-based checks keep this documentation from becoming
-incorrect whenever a validated asset is added.
+The current suite contains **247 tests**, executes **24 public `.phont`
+analyses**, validates **9 `.ottab` fixtures**, and checks **39 bounded
+dissertation records**. Discovery-based harnesses decode every checked-in
+project, execute every authored validation script transactionally, and compare
+independent native, scripted, and document transcriptions where all three
+exist. The performance gate separately exercises exact ranking-space counting,
+50,000 finite-MaxEnt evaluations, and 20,000 complete typed comparisons.
 
-The validation corpus distinguishes seven claim types:
+Passing these tests establishes the tagged finite records and software
+properties. It does not establish exhaustive coverage of the literature,
+completeness of a user-declared `GEN`, empirical warrant, historical priority,
+or equality over an undeclared continuous domain. The project does not provide
+a general continuous-HG optimizer, KKT or persistence certificate, or
+contact/inversion solver.
 
-- **source-exact finite evaluator replication** for the printed Kager
-  final-voicing panels, Pater Tableau (13), and all four printed Anttila–Cho
-  competition counts;
-- **source-bounded normalized correction** for Tessier's printed `/skul/`
-  HG/MaxEnt ledgers: the checked transcription preserves the printed support,
-  weights, violations, and costs, corrects the printed decimal for
-  `exp(-11)`, and supplies the missing finite MaxEnt normalizer;
-- **source-exact ledger transcription with structured refusal** for the
-  authored PhonoScript and `.ottab` versions of the Goldwater–Johnson Tables
-  2–3 ledger, whose unpublished fitted weights prevent probability replay;
-- **bounded reconstruction** for the McCarthy Rimi fragment and the
-  stable-labelled dissertation transcription and comparison records;
-- **synthetic or derivative checks** for generic engine and language behavior;
-- **source-inspired checks**, including the partial Prince–Smolensky Berber
-  fixture, that test a named mechanism without licensing source replication;
-  and
-- **refusal cases** when a publication or project omits a required dependency.
+## Repository map
 
-The Tessier correction is an engine-derived conditional law on the printed
-finite support, not a claim that the source printed normalized probabilities,
-a complete `GEN`, or learned weights. The Goldwater–Johnson fitted
-probabilities are not replayed because the published analysis does not provide
-the learned weight vector. The Kager basic-syllable, harmonic-bounding, and
-tie/order scripts are small derivative checks, not complete textbook
-transcriptions.
+```text
+project_phonoscript/
+├── phonoscript/     language, interpreter, engine, fixtures, and tests
+├── convalgen/       desktop application, packaging, and validation project
+├── docs/            public manuals and README media
+├── .github/         cross-platform release workflow
+└── Cargo.toml       shared Rust workspace
+```
 
-Each of the 39 bounded dissertation records carries a LaTeX source label shared
-by the English and Portuguese versions, such as `fig:...` or `tab:...`, in
-`source_locator`.
-Its fidelity tag states the replay ceiling: `fidelity:exact`,
-`fidelity:exact-transform`, `fidelity:neutral-ledger`,
-`fidelity:snapshot-only`, `fidelity:flattened-panel`, or
-`fidelity:source-panel-only`. Human-facing record names such as `H.1` aid
-navigation but are not the provenance key. Passing the suite establishes only
-the tagged finite records and software properties; it does not establish
-exhaustive coverage of the reference literature, completeness of a
-user-declared `GEN`, empirical warrant, or historical priority.
+## Developer, license, and citation
 
-The executable grammar domain is finite. The project does not implement a
-general continuous-HG candidate space, continuous optimizer, KKT/persistence
-certificate, or contact/inversion solver. A Second-Order grid judgment compares
-the declared finite sample points; it does not certify equality over a
-continuous domain.
+Project PhonoScript is created and maintained by
+[Alexandre Menezes Barroso](https://alexandrebarroso.com), its current sole
+developer.
 
-The fixed performance gate separately exercises exact ranking-space counting,
-50,000 finite-MaxEnt evaluations, and 20,000 complete typed Second-Order
-comparisons. Its budgets apply to the machine that runs it and are not a
-universal hardware promise.
-
-## Publication output and interface evidence
-
-ConvalGEN exports cropped SVG, PDF, and PNG from one native vector scene. SVG
-remains editable; PDF retains vector text and embedded fonts; PNG uses the
-explicit numeric SVG canvas and declared scale. The renderer implements the
-material visual grammar of the bundled `secondordertableau.sty` package and
-never emits a `.tex` file.
-
-The reproducible visual-validation corpus covers strict OT, HG, MaxEnt, serial
-derivations and refusals, preservation/discrepancy/refusal Second-Order
-layouts, Q-Calculus, plot families, Unicode labels, and dense matrices.
-Renderer code and semantic export tests are versioned; the generated PNG, SVG,
-and PDF corpus and UI screenshots are deliberately ignored. Publication tiling
-breaks only between complete candidate rows and constraint or metric columns,
-and repeats the input/header band, relevant constraint labels, and candidate
-register on every continuation page. Live macOS inspection covered compact,
-standard, wide, and portrait layouts, all workspaces, scrolling, preferences,
-help, about, save/export dialogs, and structured error states. These checks do
-not claim pixel identity on every platform or display configuration.
-
-## Contributing and security
-
-A bug report should state the version, operating system and architecture, the
-smallest self-contained `.phont` or `.ottab` reproduction, the calculated
+A useful bug report includes the version, operating system and architecture,
+the smallest self-contained `.phont` or `.ottab` reproduction, the calculated
 result, and the expected result with its mathematical or scholarly basis.
-Remove confidential research data before sharing a file.
+[Open an issue](https://github.com/alexandre-barroso/phonoscript_project/issues/new)
+for reproducible defects and focused proposals. Remove confidential research
+data before sharing a project. Suspected security issues should be reported
+privately through [alexandrebarroso.com](https://alexandrebarroso.com).
 
-An evaluator change requires a manually checkable finite case, an automated
-regression, a declared response type and exactness boundary, and a precise
-source locator when the test reproduces published work. Missing candidates,
-weights, normalizers, transports, or observation bridges must not be filled
-with invented values.
-
-Treat scripts and projects from untrusted sources as untrusted input. Review
-explicit save and export destinations before execution. Report a suspected
-vulnerability privately through <https://alexandrebarroso.com>.
-
-## Release 1.1.0
-
-- separated PhonoScript into an independent language and engine crate;
-- introduced PhonoScript language version 3, safe local modules, and
-  `.ottab` schema version 4;
-- made unset violation cells first-class and kept every violation ledger under
-  phonologist control;
-- added structured phonology, declared finite `GEN`, transactional execution,
-  typed refusals, exact finite-law comparison, and the unified analysis corpus;
-- expanded ConvalGEN with direct table editing, multi-tableau projects,
-  responsive scrolling, keyboard shortcuts, serial and Second-Order
-  workspaces, Q-Calculus, plotting, help, preferences, and native publication
-  export; and
-- validated 39 stable-labelled, fidelity-tagged dissertation records and the
-  bounded published-source cases listed above.
-
-## License and citation
-
-Project PhonoScript is free and open-source software under the MIT License.
-Copyright © 2026 Alexandre Menezes Barroso.
-
-Citation metadata is provided in `CITATION.cff`.
+Project PhonoScript is free and open-source software under the
+[MIT License](LICENSE). Copyright © 2026 Alexandre Menezes Barroso. Citation
+metadata is available in [`CITATION.cff`](CITATION.cff).
