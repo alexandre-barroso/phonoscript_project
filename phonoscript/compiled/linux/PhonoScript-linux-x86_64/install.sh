@@ -2,11 +2,12 @@
 set -eu
 
 usage() {
-  printf '%s\n' \
-    'Usage: ./install.sh [--user | --system | --prefix PREFIX]' \
-    '' \
-    'The default is a current-user installation under $HOME/.local. Set' \
-    'PHONOSCRIPT_PREFIX to choose another default, or pass --prefix explicitly.'
+  cat <<'USAGE'
+Usage: ./install.sh [--user | --system | --prefix PREFIX]
+
+The default is a current-user installation under $HOME/.local. Set
+PHONOSCRIPT_PREFIX to choose another default, or pass --prefix explicitly.
+USAGE
 }
 
 package_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
@@ -50,8 +51,6 @@ install -d \
 install -m 755 "$package_dir/bin/phonoscript" "$install_prefix/bin/phonoscript"
 install -m 644 "$package_dir/LICENSE" \
   "$install_prefix/share/doc/phonoscript/LICENSE"
-install -m 644 "$package_dir/BUILD-PROVENANCE.txt" \
-  "$install_prefix/share/doc/phonoscript/BUILD-PROVENANCE.txt"
 cp -R "$package_dir/docs/." "$install_prefix/share/doc/phonoscript/"
 cp -R "$package_dir/validation/analyses/." \
   "$install_prefix/share/phonoscript/validation/analyses/"

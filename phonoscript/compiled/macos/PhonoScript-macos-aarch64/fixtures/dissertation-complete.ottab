@@ -1,8 +1,8 @@
 {
   "id": "project-1",
-  "format": "convalgen-analysis",
+  "format": "phonoscript-analysis",
   "format_version": 4,
-  "application": "ConvalGEN",
+  "application": "PhonoScript GUI",
   "title": "Dissertation tableau validation project",
   "author": "Alexandre Menezes Barroso",
   "description": "A bounded transcription of dissertation tableau records, expanded at input and stage boundaries and anchored to stable EN/PT-BR LaTeX labels. Stored expectations are regression oracles only: the native evaluator calculates each answer independently. Each locator declares whether the record is exact, transformed, neutral, a snapshot, a flattened panel, or source-panel-only. Custom-score records use declared order-preserving integer costs, and neutral records without a declared evaluator have no winner oracle.",
@@ -374,7 +374,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -490,7 +490,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -606,7 +606,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -855,7 +855,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -1049,7 +1049,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -1241,7 +1241,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -1433,7 +1433,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -1625,7 +1625,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -1701,7 +1701,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -1779,7 +1779,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -1857,7 +1857,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -1935,7 +1935,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -2013,7 +2013,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -2091,7 +2091,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -2169,7 +2169,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -2247,7 +2247,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "harmonic-grammar",
       "temperature": null,
       "missing_dependencies": [],
@@ -2364,7 +2364,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -2518,7 +2518,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -2620,7 +2620,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -2699,7 +2699,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -2796,7 +2796,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -2894,7 +2894,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -3016,7 +3016,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3136,7 +3136,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3258,7 +3258,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3380,7 +3380,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3502,7 +3502,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3624,7 +3624,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3746,7 +3746,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3848,7 +3848,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -3968,7 +3968,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -4088,7 +4088,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -4256,7 +4256,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -4424,7 +4424,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -4546,7 +4546,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -4670,7 +4670,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -4792,7 +4792,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "ot",
       "temperature": null,
       "missing_dependencies": [],
@@ -4889,7 +4889,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],
@@ -4988,7 +4988,7 @@
         }
       ],
       "tie_policy": "retain all co-winners",
-      "notes": "Transcribed regression fixture. ConvalGEN calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
+      "notes": "Transcribed regression fixture. PhonoScript GUI calculates the result from the stored constraint and candidate records before comparing it with the declared expectation.",
       "evaluator": "max-ent",
       "temperature": null,
       "missing_dependencies": [],

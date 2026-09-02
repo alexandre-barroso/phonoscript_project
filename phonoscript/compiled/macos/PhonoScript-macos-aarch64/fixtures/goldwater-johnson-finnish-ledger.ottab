@@ -1,8 +1,8 @@
 {
   "id": "project-1",
-  "format": "convalgen-analysis",
+  "format": "phonoscript-analysis",
   "format_version": 4,
-  "application": "ConvalGEN",
+  "application": "PhonoScript GUI",
   "title": "Goldwater-Johnson Finnish candidate ledger",
   "author": "",
   "description": "Exact transcription of the four word classes displayed in Goldwater and Johnson (2003), Table 2. The Finnish fitted weights are not printed in the paper, so the persisted dependency record makes this a nonevaluable mark ledger rather than a probability-replication claim.",

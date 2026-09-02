@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=PhonoScript GUI
+Comment=Constraint-based grammar analysis
+Exec=phonoscript-gui %F
+TryExec=phonoscript-gui
+Icon=com.alexandrebarroso.phonoscriptgui
+Terminal=false
+Categories=Education;Science;Languages;
+MimeType=application/vnd.phonoscript.gui.analysis+json;text/x-phont;
+StartupNotify=true

@@ -1,8 +1,8 @@
 {
   "id": "project-1",
-  "format": "convalgen-analysis",
+  "format": "phonoscript-analysis",
   "format_version": 4,
-  "application": "ConvalGEN",
+  "application": "PhonoScript GUI",
   "title": "Berber partial candidate comparison",
   "author": "",
   "description": "",

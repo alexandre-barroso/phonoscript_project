@@ -1,11 +1,11 @@
 {
   "id": "project-1",
-  "format": "convalgen-analysis",
+  "format": "phonoscript-analysis",
   "format_version": 4,
-  "application": "ConvalGEN",
+  "application": "PhonoScript GUI",
   "title": "Tessier /skul/ HG-MaxEnt comparison",
   "author": "",
-  "description": "Independent transcription of Tessier (2017), physical PDF page 16, Tableaux (14)-(15). The source's exp(-11) decimal is incorrect and its MaxEnt values are unnormalized; ConvalGEN calculates the corrected finite conditional law from the printed ledger.",
+  "description": "Independent transcription of Tessier (2017), physical PDF page 16, Tableaux (14)-(15). The source's exp(-11) decimal is incorrect and its MaxEnt values are unnormalized; PhonoScript GUI calculates the corrected finite conditional law from the printed ledger.",
   "keywords": [],
   "evaluator": "harmonic-grammar",
   "temperature": {
