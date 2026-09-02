@@ -8,15 +8,15 @@
 
 <p align="center">
   <a href="https://github.com/alexandre-barroso/phonoscript_project/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/alexandre-barroso/phonoscript_project/release.yml?branch=main&amp;style=flat-square&amp;label=build" alt="Build status"></a>
-  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest"><img src="https://img.shields.io/github/v/release/alexandre-barroso/phonoscript_project?style=flat-square&amp;color=111827" alt="Latest release"></a>
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/tag/1.2.0"><img src="https://img.shields.io/badge/release-1.2.0-111827?style=flat-square" alt="PhonoScript release 1.2.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/alexandre-barroso/phonoscript_project?style=flat-square&amp;color=111827" alt="MIT License"></a>
   <img src="https://img.shields.io/badge/Rust-1.88%2B-111827?style=flat-square&amp;logo=rust&amp;logoColor=white" alt="Rust 1.88 or newer">
 </p>
 
 <p align="center">
-  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/macos.zip"><img src="https://img.shields.io/badge/Download-macOS%20Apple%20silicon-111827?style=for-the-badge&amp;logo=apple&amp;logoColor=white" alt="Download for macOS Apple silicon"></a>
-  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/windows.zip"><img src="https://img.shields.io/badge/Download-Windows%20x64-111827?style=for-the-badge&amp;logo=windows11&amp;logoColor=white" alt="Download for Windows x64"></a>
-  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/linux.zip"><img src="https://img.shields.io/badge/Download-Linux%20x64-111827?style=for-the-badge&amp;logo=linux&amp;logoColor=white" alt="Download for Linux x64"></a>
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/download/1.2.0/macos.zip"><img src="https://img.shields.io/badge/Download-macOS%20Apple%20silicon-111827?style=for-the-badge&amp;logo=apple&amp;logoColor=white" alt="Download PhonoScript 1.2.0 for macOS Apple silicon"></a>
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/download/1.2.0/windows.zip"><img src="https://img.shields.io/badge/Download-Windows%20x64-111827?style=for-the-badge&amp;logo=windows11&amp;logoColor=white" alt="Download PhonoScript 1.2.0 for Windows x64"></a>
+  <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/download/1.2.0/linux.zip"><img src="https://img.shields.io/badge/Download-Linux%20x64-111827?style=for-the-badge&amp;logo=linux&amp;logoColor=white" alt="Download PhonoScript 1.2.0 for Linux x64"></a>
 </p>
 
 Project PhonoScript joins a standalone language with a graphical application
@@ -66,12 +66,12 @@ public manuals, and the platform’s validation material.
 
 | Platform | Architecture | Package |
 |---|---|---|
-| macOS | Apple silicon (`arm64`) | [Download `macos.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/macos.zip) |
-| Windows | x86-64 | [Download `windows.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/windows.zip) |
-| Linux | x86-64 | [Download `linux.zip`](https://github.com/alexandre-barroso/phonoscript_project/releases/latest/download/linux.zip) |
+| macOS | Apple silicon (`arm64`) | [Download PhonoScript 1.2.0 (`macos.zip`)](https://github.com/alexandre-barroso/phonoscript_project/releases/download/1.2.0/macos.zip) |
+| Windows | x86-64 | [Download PhonoScript 1.2.0 (`windows.zip`)](https://github.com/alexandre-barroso/phonoscript_project/releases/download/1.2.0/windows.zip) |
+| Linux | x86-64 | [Download PhonoScript 1.2.0 (`linux.zip`)](https://github.com/alexandre-barroso/phonoscript_project/releases/download/1.2.0/linux.zip) |
 
 The archives are native distributions rather than app-store installers. See
-the [latest release notes](https://github.com/alexandre-barroso/phonoscript_project/releases/latest)
+the [PhonoScript 1.2.0 release notes](https://github.com/alexandre-barroso/phonoscript_project/releases/tag/1.2.0)
 for the signing and packaging status of each build.
 
 ## PhonoScript language
