@@ -31,7 +31,7 @@
 Project PhonoScript joins a standalone language with a graphical application
 over one phonological engine. A study can be calculated from a `.phont` script,
 edited as a multi-tableau `.ottab` project, inspected visually, and exported
-without changing evaluator implementations between interfaces. Online version hosted
+without changing evaluator implementations between interfaces. Online (limited) version hosted
 [here](https://phonoscript.alexandrebarroso.com).
 
 <p align="center">
