@@ -20,10 +20,19 @@
   <a href="https://github.com/alexandre-barroso/phonoscript_project/releases/download/1.2.0/linux.zip"><img src="https://img.shields.io/badge/Download-Linux%20x64-111827?style=for-the-badge&amp;logo=linux&amp;logoColor=white" alt="Download PhonoScript 1.2.0 for Linux x64"></a>
 </p>
 
+<p align="center">
+<a href="https://phonoscript.alexandrebarroso.com">
+  <img alt="Static Badge" src="https://img.shields.io/badge/CLICK%20HERE%20FOR%20THE%20ONLINE%20DEMO-8A2BE2">
+</a>
+
+</p>
+
+
 Project PhonoScript joins a standalone language with a graphical application
 over one phonological engine. A study can be calculated from a `.phont` script,
 edited as a multi-tableau `.ottab` project, inspected visually, and exported
-without changing evaluator implementations between interfaces.
+without changing evaluator implementations between interfaces. Online version hosted
+[here](https://phonoscript.alexandrebarroso.com).
 
 <p align="center">
   <img src="docs/assets/phonoscript-gui-project-overview.jpg" width="460" alt="PhonoScript GUI showing the 39-tableau dissertation validation project">
